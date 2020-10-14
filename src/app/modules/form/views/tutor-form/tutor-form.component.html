@@ -1,0 +1,110 @@
+<div class="bg"></div>
+<div fxLayout="row" fxLayoutAlign="center stretch">
+    <div class="wrapper">
+        <mat-card class="sm-card-reduce-pd">
+            <mat-card-title style="text-align: center;">
+                Korepetycje MOSTowe <br /><br />
+                formularz dla korepetytora
+            </mat-card-title>
+            <mat-card-content style="width: 100%;">
+                <mat-vertical-stepper #stepper linear style="width: 100%;">
+                    <mat-step [stepControl]="contactForm">
+                        <form [formGroup]="contactForm" fxLayout="column">
+                            <ng-template matStepLabel>Dane kontaktowe</ng-template>
+                            <mat-form-field>
+                                <mat-label>Imię i nazwisko</mat-label>
+                                <input matInput formControlName="name" required>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Adres email</mat-label>
+                                <input matInput formControlName="email" required>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Nr telefonu</mat-label>
+                                <input matInput formControlName="phone">
+                            </mat-form-field>
+
+                            <div style="padding-top: 16px;">
+                                <button mat-raised-button color="accent" [disabled]="!contactForm.valid"
+                                    matStepperNext>Dalej</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="lessonsForm">
+                        <form [formGroup]="lessonsForm" fxLayout="column" fxLayoutGap="16px">
+                            <ng-template matStepLabel>Informacje dot. korepetycji</ng-template>
+
+                            <h1 class="mat-h1">Jakich przedmiotów mógłbyś/mogłabyś uczyć?</h1>
+                            <div>
+                                <multiselect-checkbox formControlName="teaches" allowCustom="3"
+                                    customPlaceholder="inny...">
+                                </multiselect-checkbox>
+                                <div *ngIf="lessonsForm.get('teaches')!.invalid && (lessonsForm.get('teaches')!.dirty || lessonsForm.get('teaches')!.touched)"
+                                    class="alert mat-small">Wybierz co najmniej 1 przedmiot
+                                </div>
+                            </div>
+
+                            <div *ngIf="subjects.length > 0" fxLayout="column" fxLayoutGap="8px">
+                                <h1 class="mat-h1">Na jakim poziomie?</h1>
+                                <table>
+                                    <tr>
+                                        <th></th>
+                                        <th>szkoła podstawowa</th>
+                                        <th>szkoła średnia (podstawa)</th>
+                                        <th>matura rozszerzona</th>
+                                    </tr>
+                                    <tr *ngFor="let subject of subjects">
+                                        <td>{{ subject }}</td>
+                                        <td>
+                                            <mat-checkbox [formControlName]="subject+'-sp'" #level>
+                                            </mat-checkbox>
+                                        </td>
+                                        <td>
+                                            <mat-checkbox [formControlName]="subject+'-lo'" #level>
+                                            </mat-checkbox>
+                                        </td>
+                                        <td>
+                                            <mat-checkbox [formControlName]="subject+'-matura'" #level>
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <h1 class="mat-h1">Jakie formy korepetycji ci odpowiadają?</h1>
+
+                            <mat-radio-group fxLayout="column" formControlName="remoteOrStationary" required>
+                                <mat-radio-button [value]="5">Tylko zdalnie</mat-radio-button>
+                                <mat-radio-button [value]="4">Lepiej zdalnie, ale może być w Moście</mat-radio-button>
+                                <mat-radio-button [value]="3">Bez różnicy</mat-radio-button>
+                                <mat-radio-button [value]="2">Lepiej w Moście, ale może być zdalnie</mat-radio-button>
+                                <mat-radio-button [value]="1">Tylko w Moście</mat-radio-button>
+                            </mat-radio-group>
+
+                            <div fxLayout="row" fxLayoutGap="8px">
+                                <button mat-button matStepperPrevious>Wstecz</button>
+                                <button mat-raised-button matStepperNext color="accent"
+                                    [disabled]="!lessonsForm.valid">Dalej</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Klauzule informacyjne</ng-template>
+                        <div class="mat-h1">Wolontariat</div>
+                        <div class="mat-body" style="margin-bottom: 16px">Korepetycje są dobrowolną formą pomocy
+                            dzieciom mającym problemy z nauką. Nie bierzemy za nie żadnych pieniędzy i nie płacimy
+                            nikomu za ich udzielanie.
+                        </div>
+                        <app-form-clauses [formGroup]="clausesForm">
+                            <div fxLayout="row" fxLayoutGap="8px">
+                                <button mat-button matStepperPrevious>Wstecz</button>
+                                <button mat-raised-button matStepperNext color="accent" [disabled]="!clausesForm?.valid"
+                                    (click)="submit()">Wyślij</button>
+                            </div>
+                        </app-form-clauses>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

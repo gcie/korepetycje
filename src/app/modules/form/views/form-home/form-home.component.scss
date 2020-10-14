@@ -1,0 +1,57 @@
+.btn {
+  min-width: 200px;
+  min-height: 300px;
+  margin: 4px;
+  // background-color: #6aace3;
+  @media (max-width: 767.98px) {
+    /* your conditional / responsive CSS inside this condition */
+
+    min-height: unset;
+  }
+}
+
+.btn-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.btn-desc {
+  width: 200px;
+  // display: block;
+  white-space: normal;
+}
+
+.fullscreen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  &-bg {
+    background-color: #81c2fa;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* your conditional / responsive CSS inside this condition */
+
+  .sm-col {
+    flex-direction: column !important;
+  }
+
+  .sm-row {
+    flex-direction: row !important;
+  }
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px !important;
+}
+
+.subheader {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 24px !important;
+}

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "250952480531",
+    "firebase_url": "https://gciesielski-budgeteer.firebaseio.com",
+    "project_id": "gciesielski-budgeteer",
+    "storage_bucket": "gciesielski-budgeteer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250952480531:android:ca7e2dbd1632006758cce6",
+        "android_client_info": {
+          "package_name": "com.gciesielski.budgeteer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250952480531-3dc3g6tr37kdalm473nem0p44lm7srrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gciesielski.budgeteer",
+            "certificate_hash": "3da3d77e06a33cf63de65f14db0be138a8ac619e"
+          }
+        },
+        {
+          "client_id": "250952480531-mpe3gkk2j93kp552c6f131jc8bol45qv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkF8CUForat7ezXYtrgz0BFU_J8UfxSR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250952480531-mpe3gkk2j93kp552c6f131jc8bol45qv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

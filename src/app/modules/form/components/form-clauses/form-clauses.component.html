@@ -1,0 +1,46 @@
+<form [formGroup]="clausesForm" fxLayout="column" fxLayoutGap="8px">
+
+    <div class="mat-h1">Kaluzula informacyjna dotycząca przetwarzania danych osobowych</div>
+    <div class="mat-body">
+        Zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie
+        ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich
+        danych oraz uchylenia dyrektywy 95/46/WE (dalej jako „RODO”) informujemy, że: <br /> 1. Administratorem Twoich
+        danych jest Stowarzyszenie Akademickie MOST, które zgodnie ze statutem wspiera działania Salezjańskiego
+        Duszpasterstwa Akademickiego MOST na zewnątrz, Plac Grunwaldzki 3, 50-377 Wrocław. Z administratorem danych
+        można się skontaktować poprzez adres e-mail: sda.most@gmail.com; <br /> 2. Wyżej wymienione dane osobowe będą
+        przetwarzane w celu kwalifikacji, a następnie organizacji uczestnictwa w Korepetycjach MOSTowych oraz w zakresie
+        niezbędnym dla bezpieczeństwa i ochrony zdrowia uczestnika; <br /> 3. Podstawą przetwarzania tych danych jest
+        moja dobrowolna zgoda (art. 6 ust.1. lit a. RODO), przechowywanie odbywa na podstawie art. 92h Ustawy o systemie
+        oświaty; <br /> 4. Brak wyrażenia zgody skutkuje brakiem możliwości uczestnictwa w organizowanych korepetycjach;
+        <br /> 5. Dane osobowe będą przetwarzane u Administratora przez okres korepetycji, a następnie przechowywane
+        przez okres 5 lat po zakończeniu korepetycji; <br /> 6. Dane będą przekazywane jedynie organom nadzorczym
+        posiadających uprawnienia do sprawowania kontroli prowadzonego wydarzenia;<br /> 7. Uczestnicy posiadają prawo
+        dostępu do treści wymienionych danych oraz prawo ich sprostowania, usunięcia, ograniczenia przetwarzania, prawo
+        do przenoszenia danych, prawo wniesienia sprzeciwu, prawo do cofnięcia zgody w dowolnym momencie bez wpływu na
+        zgodność z prawem przetwarzania, którego dokonano na podstawie zgody przed jej cofnięciem;<br /> 8. Uczestnikom
+        przysługuje prawo wniesienia skargi do Organu Nadzorczego, gdy uznam, iż przetwarzanie tych danych osobowych
+        narusza przepisy rozporządzenia RODO; </div>
+    <mat-checkbox formControlName="clause1">
+        <span class="alert mat-body-1">*</span>
+        <span class="mat-body-1" style="white-space: normal;">
+            Zapoznałem (-am) się z treścią klauzuli informacyjnej, w tym z informacją o celach i sposobach przetwarzania
+            moich danych osobowych oraz prawach przysługujących mi w związku z przetwarzaniem danych osobowych przez
+            Salezjańskie Duszpasterstwo Akademickie MOST i Stowarzyszenie Akademickie MOST.</span>
+    </mat-checkbox>
+    <mat-checkbox formControlName="clause2" required>
+        <span class="alert mat-body-1">*</span>
+        <span class="mat-body-1" style="white-space: normal;">
+            Wyrażam zgodę na przetwarzanie przez Salezjańskie Duszpasterstwo Akademickie MOST i Stowarzyszenie
+            Akademickie MOST, Plac Grunwaldzki 3, 50-377 Wrocław danych osobowych zawartych w formularzu w celu
+            organizacji uczestnictwa w Korepetycjach MOSTowych oraz w zakresie niezbędnym dla bezpieczeństwa i ochrony
+            zdrowia uczestnika.</span>
+    </mat-checkbox>
+    <mat-checkbox formControlName="clause3" required>
+        <span class="alert mat-body-1">*</span>
+        <span class="mat-body-1" style="white-space: normal;">
+            Wyrażam zgodę na otrzymywanie drogą elektroniczną na podany adres mailowy informacji od Salezjańskiego
+            Duszpasterstwa Akademickiego MOST i Stowarzyszenia Akademickiego MOST.
+        </span>
+    </mat-checkbox>
+    <ng-content></ng-content>
+</form>

@@ -1,0 +1,13 @@
+<div fxLayout="column">
+    <mat-checkbox *ngFor="let option of valueKeys" [(ngModel)]="value[option]" (ngModelChange)="onChange()">
+        {{ option }}
+    </mat-checkbox>
+    <mat-checkbox *ngFor="let i of customId" [(ngModel)]="customValue[i]" (ngModelChange)="onChange()">
+        <input matInput style="margin-left: 8px" [(ngModel)]="customName[i]" #customInput (ngModelChange)="onChange()"
+            [placeholder]="customPlaceholder">
+    </mat-checkbox>
+    <app-noop-checkbox *ngIf="allowCustom === '' || allowCustom > customValue?.length" (clicked)="addCustom()"
+        #newCustomCheckbox>
+        <input matInput [placeholder]="customPlaceholder" style="margin-left: 8px">
+    </app-noop-checkbox>
+</div>
