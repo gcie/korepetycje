@@ -1,27 +1,18 @@
 # Korepetycje
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.3.
+Aplikacja do zarządzania korepetycjami MOSTowymi ([https://most.salezjanie.pl/korepetycje-mostowe/](https://most.salezjanie.pl/korepetycje-mostowe/)). Aktualne funkcjonalności:
 
-## Development server
+- możliwość zgłaszania się do korepetycji przez uczniów
+- możliwość zgłaszania dziecka przez rodzica
+- możliwość zgłoszenia się studenta jako korepetytora
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/](https://most-korepetycje.firebaseapp.com/form)) i korzysta z frameworku Angular 10.
 
-## Code scaffolding
+# Lista zmian
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Wersja 1.0.0
 
-## Build
+- możliwość zgłaszania się do korepetycji przez uczniów
+- możliwość zgłaszania dziecka przez rodzica
+- możliwość zgłoszenia się studenta jako korepetytora
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
