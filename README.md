@@ -10,6 +10,10 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 # Lista zmian
 
+## Wersja 1.1.0
+
+- notyfikacje email dla managera przy wypełnieniu formularza
+
 ## Wersja 1.0.0
 
 - możliwość zgłaszania się do korepetycji przez uczniów
