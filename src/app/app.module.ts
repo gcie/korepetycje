@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { auth } from 'firebase';
@@ -46,7 +46,17 @@ const firebaseUiAuthConfig: authui.Config = {
     LoginModule,
     HomeModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SETTINGS,
+      useValue: environment.production
+        ? undefined
+        : {
+            host: 'localhost:8001',
+            ssl: false,
+          },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
