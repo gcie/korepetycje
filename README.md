@@ -12,7 +12,7 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 ## Wersja 1.1.0
 
-- notyfikacje email dla managera przy wypełnieniu formularza
+- notyfikacje email dla managera przy wypełnieniu formularza ([#1](https://github.com/tao24/korepetycje/issues/1))
 
 ## Wersja 1.0.0
 
