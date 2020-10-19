@@ -8,7 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "emulators": "firebase emulators:start --import=.emulators --export-on-exit"
+    "emulators": "firebase emulators:start --import=.emulators --export-on-exit",
+    "deploy": "ng build --prod && firebase deploy",
+    "deploy:webapp": "ng build --prod && firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions"
   },
   "private": true,
   "dependencies": {

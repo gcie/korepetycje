@@ -26,7 +26,7 @@ const mailTransport = nodemailer.createTransport({
 });
 
 exports.newPupilNotifcations = functions.firestore.document('pupils/{pupil}').onCreate(async (snapshot, context) => {
-  const config = (await db.doc('admin/newPupilNotifcations').get()).data();
+  const config = (await db.doc('admin/newPupilNotifications').get()).data();
 
   if (!config.enabled) return true;
 
@@ -47,7 +47,7 @@ exports.newPupilNotifcations = functions.firestore.document('pupils/{pupil}').on
 });
 
 exports.newTutorNotifcations = functions.firestore.document('tutors/{tutor}').onCreate(async (snapshot, context) => {
-  const config = (await db.doc('admin/newTutorNotifcations').get()).data();
+  const config = (await db.doc('admin/newTutorNotifications').get()).data();
 
   if (!config.enabled) return true;
 
