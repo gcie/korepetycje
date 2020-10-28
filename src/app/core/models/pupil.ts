@@ -1,4 +1,5 @@
 export interface Pupil {
+  _id: string;
   class: string;
   contactEmail: string;
   name: string;

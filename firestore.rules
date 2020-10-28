@@ -1,13 +1,26 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function isManager() {
+      return request.auth.uid != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.permissions.manager == true
+    }
+
+    function validateNewUser() {
+      return request.resource.data.permissions.user == true && request.resource.data.permissions.manager == false
+    }
+
     match /pupils/{pupil} {
       allow create: if true
-      allow read: if request.auth != null
+      allow read, write: if isManager()
     }
     match /tutors/{tutor} {
       allow create: if true
-      allow read: if request.auth != null
+      allow read, write: if isManager()
+    }
+    match /users/{uid} {
+      allow create: if request.auth.uid == uid && validateNewUser()
+      allow read: if request.auth.uid == uid
     }
   }
 }

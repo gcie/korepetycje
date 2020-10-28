@@ -16,7 +16,10 @@ import { LoginModule } from './modules/login/login.module';
 
 const firebaseUiAuthConfig: authui.Config = {
   signInOptions: [
-    auth.GoogleAuthProvider.PROVIDER_ID,
+    {
+      provider: auth.GoogleAuthProvider.PROVIDER_ID,
+      clientId: environment.googleClientId,
+    },
     {
       scopes: ['public_profile', 'email'],
       customParameters: {
@@ -30,6 +33,7 @@ const firebaseUiAuthConfig: authui.Config = {
     },
   ],
   credentialHelper: authui.CredentialHelper.ACCOUNT_CHOOSER_COM,
+  signInFlow: 'popup',
 };
 
 @NgModule({

@@ -1,5 +1,7 @@
+import { LessonsMode } from '../enum/lessons-mode.enum';
+
 export interface Tutor {
-  _id?: string;
+  _id: string;
   name: string;
   email: string;
   phone: string;
@@ -10,7 +12,7 @@ export interface Tutor {
       matura: boolean;
     };
   };
-  remoteOrStationary: number;
+  remoteOrStationary: LessonsMode;
   pupilId?: string;
   notes: string;
   createdAt: Date;

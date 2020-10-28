@@ -1,0 +1,25 @@
+<mat-list-item>
+    <div fxLayout="row" fxLayoutAlign="start center" class="wrapper">
+
+        <p matLine class="mat-body-strong caption" [fxFlex]="labelWidth">
+            <ng-content></ng-content>
+        </p>
+
+        <p *ngIf="!editMode" fxFlex="fill" class="mat-body-2 content">
+            {{ data[value] }}</p>
+
+        <button *ngIf="!editMode" fxFlex="none" mat-icon-button (click)="triggerEdit()">
+            <mat-icon class="mdi mdi-pencil"></mat-icon>
+        </button>
+
+        <mat-form-field *ngIf="editMode" fxFlex="fill">
+            <mat-select [(ngModel)]="value" (ngModelChange)="submit()" #select>
+                <mat-option *ngFor="let opt of data | keyvalue" [value]="opt.key">{{ opt.value }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button *ngIf="editMode" fxFlex="none" mat-icon-button (click)="submit()">
+            <mat-icon class="mdi mdi-check"></mat-icon>
+        </button>
+    </div>
+</mat-list-item>

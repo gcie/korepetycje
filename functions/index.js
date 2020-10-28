@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 const admin = require('firebase-admin');
 const dotenv = require('dotenv');
+const { firestore } = require('firebase');
 
 dotenv.config();
 admin.initializeApp();
@@ -65,4 +66,16 @@ exports.newTutorNotifcations = functions.firestore.document('tutors/{tutor}').on
   mailOptions.text = text.replace('{newline}', '\n');
 
   return await mailTransport.sendMail(mailOptions);
+});
+
+exports.formatTutorOnCreate = functions.firestore.document('tutors/{tutorId}').onCreate(async (snapshot, context) => {
+  snapshot.ref.update({
+    _id: context.params.tutorId,
+  });
+});
+
+exports.formatPupilOnCreate = functions.firestore.document('pupils/{pupilId}').onCreate(async (snapshot, context) => {
+  snapshot.ref.update({
+    _id: context.params.pupilId,
+  });
 });

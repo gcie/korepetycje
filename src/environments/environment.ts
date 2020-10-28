@@ -11,8 +11,9 @@ export const environment = {
     projectId: 'most-korepetycje',
     storageBucket: 'most-korepetycje.appspot.com',
     messagingSenderId: '659482562541',
-    appId: '1:659482562541:web:00328396096bd574fe61e4'
-  }
+    appId: '1:659482562541:web:00328396096bd574fe61e4',
+  },
+  googleClientId: '659482562541-offsb186msm6bjdg7glft4k3rf78frqb.apps.googleusercontent.com',
 };
 
 /*

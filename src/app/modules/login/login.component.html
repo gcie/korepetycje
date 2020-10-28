@@ -1,2 +1,8 @@
-<firebase-ui (signInSuccessWithAuthResult)="successCallback($event)" (signInFailure)="errorCallback($event)"
-    (uiShown)="uiShownCallback()"></firebase-ui>
+<div fxLayout="column" fxLayoutAlign="center center" class="bg">
+    <div class="mat-elevation-z8" style="background-color: white" fxLayout="column" fxLayoutAlign="start center">
+        <!-- <h1 class="mat-display-1" style="margin: 24px 0;">Zaloguj się</h1> -->
+        <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)" (signInFailure)="errorCallback($event)"
+            (uiShown)="uiShownCallback($event)"></firebase-ui>
+    </div>
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
+</div>

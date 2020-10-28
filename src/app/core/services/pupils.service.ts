@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Pupil } from '../models/pupil';
@@ -15,7 +15,7 @@ export class PupilsService {
 
   constructor(private firestore: AngularFirestore) {}
 
-  createPupil(pupil: Pupil): Promise<void> {
-    return this.firestore.collection('pupils').doc(pupil.contactEmail).set(pupil);
+  createPupil(pupil: Pupil): Promise<DocumentReference> {
+    return this.firestore.collection('pupils').add(pupil);
   }
 }
