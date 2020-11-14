@@ -13,6 +13,7 @@ import { FormHomeComponent } from './views/form-home/form-home.component';
 import { ParentFormComponent } from './views/parent-form/parent-form.component';
 import { PupilFormComponent } from './views/pupil-form/pupil-form.component';
 import { TutorFormComponent } from './views/tutor-form/tutor-form.component';
+import { CovidAlertDialogComponent } from './components/covid-alert-dialog/covid-alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TutorFormComponent } from './views/tutor-form/tutor-form.component';
     ParentFormComponent,
     TutorFormComponent,
     FormFailureDialogComponent,
+    CovidAlertDialogComponent,
   ],
   imports: [CommonModule, SharedModule, FormRoutingModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, MaterialModule],
 })

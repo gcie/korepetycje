@@ -1,11 +1,12 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/models/pupil';
 import { PupilsService } from 'src/app/services/pupils.service';
 import { selectBetween } from 'src/app/shared/multiselect-checkbox/multiselect-checkbox.component';
+import { CovidAlertDialogComponent } from '../../components/covid-alert-dialog/covid-alert-dialog.component';
 import { FormFailureDialogComponent } from '../../components/form-failure-dialog/form-failure-dialog.component';
 import { FormResultDialogData, FormSuccessDialogComponent } from '../../components/form-success-dialog/form-success-dialog.component';
 
@@ -14,7 +15,7 @@ import { FormResultDialogData, FormSuccessDialogComponent } from '../../componen
   templateUrl: './pupil-form.component.html',
   styleUrls: ['./pupil-form.component.scss'],
 })
-export class PupilFormComponent {
+export class PupilFormComponent implements AfterViewInit {
   contactForm: FormGroup;
   parentForm: FormGroup;
   lessonsForm: FormGroup;
@@ -38,6 +39,10 @@ export class PupilFormComponent {
         })
       )
       ?.subscribe((wybranePrzedmioty) => (this.wybranePrzedmioty = wybranePrzedmioty));
+  }
+
+  ngAfterViewInit() {
+    this.dialog.open(CovidAlertDialogComponent);
   }
 
   submit() {
