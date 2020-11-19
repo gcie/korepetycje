@@ -51,7 +51,7 @@ export class ParentFormComponent implements AfterViewInit {
       if (this.pupilForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
       if (this.pupilForm.value.previousTutor) pupil.notes += ' z ' + this.pupilForm.value.previousTutor;
       pupil.needs = Object.keys(this.pupilForm.value.needs).filter((v) => this.pupilForm.value.needs[v]);
-      const dialogData: FormResultDialogData = { mode: 'parent', email: this.contactForm.value.email };
+      const dialogData: FormResultDialogData = { mode: 'parent', email: this.contactForm.value.parentEmail };
       this.pupils
         .createPupil(pupil)
         .then(() => {
