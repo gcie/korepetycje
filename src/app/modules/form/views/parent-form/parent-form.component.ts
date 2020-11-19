@@ -47,6 +47,7 @@ export class ParentFormComponent implements AfterViewInit {
     if (this.contactForm.valid && this.pupilForm.valid && this.clausesForm.valid) {
       let pupil: Pupil = Object.assign({}, this.contactForm.value, this.pupilForm.value);
       pupil.contactEmail = this.contactForm.value.parentEmail;
+      pupil.submittedBy = 'parent';
       if (this.pupilForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
       if (this.pupilForm.value.previousTutor) pupil.notes += ' z ' + this.pupilForm.value.previousTutor;
       pupil.needs = Object.keys(this.pupilForm.value.needs).filter((v) => this.pupilForm.value.needs[v]);
@@ -98,6 +99,26 @@ export class ParentFormComponent implements AfterViewInit {
       clause1: new FormControl(false, Validators.requiredTrue),
       clause2: new FormControl(false, Validators.requiredTrue),
       clause3: new FormControl(false, Validators.requiredTrue),
+    });
+  }
+
+  private debugMode() {
+    this.contactForm.patchValue({
+      parentName: 'test',
+      parentEmail: 'test@test',
+    });
+    this.pupilForm.patchValue({
+      name: 'test',
+      class: 'test',
+      needs: {
+        matematyka: true,
+      },
+      remoteOrStationary: 3,
+    });
+    this.clausesForm.patchValue({
+      clause1: true,
+      clause2: true,
+      clause3: true,
     });
   }
 }

@@ -51,6 +51,7 @@ export class PupilFormComponent implements AfterViewInit {
       pupil.contactEmail = this.contactForm.value.email;
       pupil.mainNeeds = this.lessonsForm.value.mainNeeds;
       pupil.remoteOrStationary = this.lessonsForm.value.remoteOrStationary;
+      pupil.submittedBy = 'himself';
       if (this.lessonsForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
       if (this.lessonsForm.value.previousTutor) pupil.notes += ' z ' + this.lessonsForm.value.previousTutor;
       pupil.needs = Object.keys(this.lessonsForm.value.needs).filter((v) => this.lessonsForm.value.needs[v]);
@@ -106,6 +107,25 @@ export class PupilFormComponent implements AfterViewInit {
       clause1: new FormControl(false, Validators.requiredTrue),
       clause2: new FormControl(false, Validators.requiredTrue),
       clause3: new FormControl(false, Validators.requiredTrue),
+    });
+  }
+
+  private debugMode() {
+    this.contactForm.patchValue({
+      name: 'test',
+      email: 'test@test',
+      class: 'test',
+    });
+    this.lessonsForm.patchValue({
+      needs: {
+        matematyka: true,
+      },
+      remoteOrStationary: 3,
+    });
+    this.clausesForm.patchValue({
+      clause1: true,
+      clause2: true,
+      clause3: true,
     });
   }
 }
