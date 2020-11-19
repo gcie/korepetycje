@@ -1,11 +1,12 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/core/models/pupil';
 import { PupilsService } from 'src/app/core/services/pupils.service';
 import { selectBetween } from 'src/app/shared/multiselect-checkbox/multiselect-checkbox.component';
+import { CovidAlertDialogComponent } from '../../components/covid-alert-dialog/covid-alert-dialog.component';
 import { FormFailureDialogComponent } from '../../components/form-failure-dialog/form-failure-dialog.component';
 import { FormResultDialogData, FormSuccessDialogComponent } from '../../components/form-success-dialog/form-success-dialog.component';
 
@@ -14,7 +15,7 @@ import { FormResultDialogData, FormSuccessDialogComponent } from '../../componen
   templateUrl: './pupil-form.component.html',
   styleUrls: ['./pupil-form.component.scss'],
 })
-export class PupilFormComponent {
+export class PupilFormComponent implements AfterViewInit {
   contactForm: FormGroup;
   parentForm: FormGroup;
   lessonsForm: FormGroup;
@@ -40,12 +41,17 @@ export class PupilFormComponent {
       ?.subscribe((wybranePrzedmioty) => (this.wybranePrzedmioty = wybranePrzedmioty));
   }
 
+  ngAfterViewInit() {
+    this.dialog.open(CovidAlertDialogComponent);
+  }
+
   submit() {
     if (this.contactForm.valid && this.parentForm.valid && this.lessonsForm.valid && this.clausesForm.valid) {
       let pupil: Pupil = Object.assign({}, this.contactForm.value, this.parentForm.value);
       pupil.contactEmail = this.contactForm.value.email;
       pupil.mainNeeds = this.lessonsForm.value.mainNeeds;
       pupil.remoteOrStationary = this.lessonsForm.value.remoteOrStationary;
+      pupil.submittedBy = 'himself';
       if (this.lessonsForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
       if (this.lessonsForm.value.previousTutor) pupil.notes += ' z ' + this.lessonsForm.value.previousTutor;
       pupil.needs = Object.keys(this.lessonsForm.value.needs).filter((v) => this.lessonsForm.value.needs[v]);
@@ -101,6 +107,25 @@ export class PupilFormComponent {
       clause1: new FormControl(false, Validators.requiredTrue),
       clause2: new FormControl(false, Validators.requiredTrue),
       clause3: new FormControl(false, Validators.requiredTrue),
+    });
+  }
+
+  private debugMode() {
+    this.contactForm.patchValue({
+      name: 'test',
+      email: 'test@test',
+      class: 'test',
+    });
+    this.lessonsForm.patchValue({
+      needs: {
+        matematyka: true,
+      },
+      remoteOrStationary: 3,
+    });
+    this.clausesForm.patchValue({
+      clause1: true,
+      clause2: true,
+      clause3: true,
     });
   }
 }

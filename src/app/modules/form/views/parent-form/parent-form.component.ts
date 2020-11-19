@@ -1,11 +1,12 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/core/models/pupil';
 import { PupilsService } from 'src/app/core/services/pupils.service';
 import { selectBetween } from 'src/app/shared/multiselect-checkbox/multiselect-checkbox.component';
+import { CovidAlertDialogComponent } from '../../components/covid-alert-dialog/covid-alert-dialog.component';
 import { FormFailureDialogComponent } from '../../components/form-failure-dialog/form-failure-dialog.component';
 import { FormResultDialogData, FormSuccessDialogComponent } from '../../components/form-success-dialog/form-success-dialog.component';
 
@@ -14,7 +15,7 @@ import { FormResultDialogData, FormSuccessDialogComponent } from '../../componen
   templateUrl: './parent-form.component.html',
   styleUrls: ['./parent-form.component.scss'],
 })
-export class ParentFormComponent {
+export class ParentFormComponent implements AfterViewInit {
   contactForm: FormGroup;
   pupilForm: FormGroup;
   clausesForm: FormGroup;
@@ -38,14 +39,19 @@ export class ParentFormComponent {
       ?.subscribe((wybranePrzedmioty) => (this.wybranePrzedmioty = wybranePrzedmioty));
   }
 
+  ngAfterViewInit() {
+    this.dialog.open(CovidAlertDialogComponent);
+  }
+
   submit() {
     if (this.contactForm.valid && this.pupilForm.valid && this.clausesForm.valid) {
       let pupil: Pupil = Object.assign({}, this.contactForm.value, this.pupilForm.value);
       pupil.contactEmail = this.contactForm.value.parentEmail;
+      pupil.submittedBy = 'parent';
       if (this.pupilForm.value.alreadyAttended) pupil.notes = `Uczęszczał(a) na korepetycje wcześniej`;
       if (this.pupilForm.value.previousTutor) pupil.notes += ' z ' + this.pupilForm.value.previousTutor;
       pupil.needs = Object.keys(this.pupilForm.value.needs).filter((v) => this.pupilForm.value.needs[v]);
-      const dialogData: FormResultDialogData = { mode: 'parent', email: this.contactForm.value.email };
+      const dialogData: FormResultDialogData = { mode: 'parent', email: this.contactForm.value.parentEmail };
       this.pupils
         .createPupil(pupil)
         .then(() => {
@@ -93,6 +99,26 @@ export class ParentFormComponent {
       clause1: new FormControl(false, Validators.requiredTrue),
       clause2: new FormControl(false, Validators.requiredTrue),
       clause3: new FormControl(false, Validators.requiredTrue),
+    });
+  }
+
+  private debugMode() {
+    this.contactForm.patchValue({
+      parentName: 'test',
+      parentEmail: 'test@test',
+    });
+    this.pupilForm.patchValue({
+      name: 'test',
+      class: 'test',
+      needs: {
+        matematyka: true,
+      },
+      remoteOrStationary: 3,
+    });
+    this.clausesForm.patchValue({
+      clause1: true,
+      clause2: true,
+      clause3: true,
     });
   }
 }

@@ -1,4 +1,6 @@
-export const environment = {
+import { Environment } from 'src/app/core/models/environment';
+
+export const environment: Environment = {
   production: true,
   firebaseConfig: {
     apiKey: 'AIzaSyBzBqqrH3S0kXHTz6fcn79ahQfAXFm9oJo',

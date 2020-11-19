@@ -13,6 +13,7 @@ import { FormHomeComponent } from './views/form-home/form-home.component';
 import { ParentFormComponent } from './views/parent-form/parent-form.component';
 import { PupilFormComponent } from './views/pupil-form/pupil-form.component';
 import { TutorFormComponent } from './views/tutor-form/tutor-form.component';
+import { CovidAlertDialogComponent } from './components/covid-alert-dialog/covid-alert-dialog.component';
 
 const routes: Routes = [
   { path: '', component: FormHomeComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
     ParentFormComponent,
     TutorFormComponent,
     FormFailureDialogComponent,
+    CovidAlertDialogComponent,
   ],
   imports: [CommonModule, SharedModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, MaterialModule, RouterModule.forChild(routes)],
 })

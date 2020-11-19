@@ -17,6 +17,7 @@ export interface Pupil {
   lessonsStatus: string;
   assignedTutorId?: string;
   assignedTutorName?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  submittedBy: 'himself' | 'parent';
+  alreadyAttended: boolean;
+  previousTutor: string;
 }

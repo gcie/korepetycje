@@ -50,17 +50,7 @@ const firebaseUiAuthConfig: authui.Config = {
     LoginModule,
     HomeModule,
   ],
-  providers: [
-    {
-      provide: SETTINGS,
-      useValue: environment.production
-        ? undefined
-        : {
-            host: 'localhost:8001',
-            ssl: false,
-          },
-    },
-  ],
+  providers: [{ provide: SETTINGS, useValue: environment.firestoreSettings }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
