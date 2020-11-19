@@ -15,7 +15,7 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 - minor feature: notyfikacja o pandemii COVID-19 i zmianie prowadzenia korpetycji
 - minor feature: zapisywanie dodatkowych danych przy wypełnianiu formularza ucznia/rodzica (czy uczęszczał na korepetycje, imię i nazwisko poprzedniego tutora, czy zgłoszony sam czy przez rodzica)
-- bugfix: w dialogu o błędzie: istniejący email, email nie był wyświetlany jeśli wypełnialiśmy formularz w trybie rodzica
+- bugfix: w dialogu o błędzie: istniejący email, email nie był wyświetlany jeśli wypełnialiśmy formularz w trybie rodzica ([#9](https://github.com/tao24/korepetycje/issues/9))
 
 ## Wersja 1.1.0
 
