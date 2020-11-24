@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   returnUrl: string;
-  showSpinner = true;
+  userResolved = false;
+  uiShown = false;
 
   constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) {}
 
@@ -22,12 +23,12 @@ export class LoginComponent implements OnInit {
         mergeMap((params) => {
           this.returnUrl = params['return'] || '/';
           return this.auth.user;
-        }),
-        map((user) => {
-          if (user) this.router.navigateByUrl(this.returnUrl);
         })
       )
-      .subscribe();
+      .subscribe((user) => {
+        if (user) this.router.navigateByUrl(this.returnUrl);
+        this.userResolved = true;
+      });
   }
 
   successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult) {
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
   }
 
   uiShownCallback(data: any) {
-    this.showSpinner = false;
+    this.uiShown = true;
     console.log('[uiShownCallback]', data);
   }
 }

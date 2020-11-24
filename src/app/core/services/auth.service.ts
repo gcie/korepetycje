@@ -12,15 +12,17 @@ import { User } from '../models/user';
 export class AuthService {
   user: Observable<User | undefined>;
 
-  constructor(private angularFireAuth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
-    this.user = this.angularFireAuth.authState.pipe(
+  constructor(private fireAuth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
+    this.user = this.fireAuth.authState.pipe(
       mergeMap((authState) => {
+        console.log('[AuthService] authState:', authState);
         if (!authState) {
           return throwError('AuthState is none');
         }
         return forkJoin({ doc: this.firestore.collection('users').doc(authState.uid).get(), authState: of(authState) });
       }),
       mergeMap(({ doc, authState }) => {
+        console.log('[AuthService] doc:', doc.data());
         if (!doc.data()) {
           const user: User = this.createNewUser(authState);
           return this.firestore
@@ -33,17 +35,18 @@ export class AuthService {
         }
       }),
       map((user) => {
-        console.log(user);
+        console.log('[AuthService] user:', user);
         return user;
       }),
       catchError(() => {
+        console.log('[AuthService] error');
         return of(undefined);
       })
     );
   }
 
   async logout() {
-    await this.angularFireAuth.signOut();
+    await this.fireAuth.signOut();
     await this.router.navigateByUrl('/');
   }
 
