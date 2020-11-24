@@ -6,7 +6,7 @@ import { MatRadioButton } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
 import { Tutor } from 'src/app/core/models/tutor';
 import { TutorsService } from 'src/app/core/services/tutors.service';
-import { selectBetween } from 'src/app/shared/multiselect-checkbox/multiselect-checkbox.component';
+import { selectBetween } from 'src/app/shared/components/multiselect-checkbox/multiselect-checkbox.component';
 import { FormFailureDialogComponent } from '../../components/form-failure-dialog/form-failure-dialog.component';
 import { FormResultDialogData, FormSuccessDialogComponent } from '../../components/form-success-dialog/form-success-dialog.component';
 

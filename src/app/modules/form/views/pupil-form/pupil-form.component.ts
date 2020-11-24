@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/core/models/pupil';
 import { PupilsService } from 'src/app/core/services/pupils.service';
-import { selectBetween } from 'src/app/shared/multiselect-checkbox/multiselect-checkbox.component';
+import { selectBetween } from 'src/app/shared/components/multiselect-checkbox/multiselect-checkbox.component';
 import { CovidAlertDialogComponent } from '../../components/covid-alert-dialog/covid-alert-dialog.component';
 import { FormFailureDialogComponent } from '../../components/form-failure-dialog/form-failure-dialog.component';
 import { FormResultDialogData, FormSuccessDialogComponent } from '../../components/form-success-dialog/form-success-dialog.component';

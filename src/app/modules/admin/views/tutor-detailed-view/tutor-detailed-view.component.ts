@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { lessonsModeData } from 'src/app/core/enum/lessons-mode.enum';
 import { Tutor } from 'src/app/core/models/tutor';
 import { TutorsService } from 'src/app/core/services/tutors.service';
+import { AdminChild } from '../admin-home/admin-home.component';
 
 @Component({
   selector: 'app-tutor-detailed-view',
   templateUrl: './tutor-detailed-view.component.html',
   styleUrls: ['./tutor-detailed-view.component.scss'],
 })
-export class TutorDetailedViewComponent implements OnInit {
+export class TutorDetailedViewComponent implements OnInit, AdminChild {
+  title: Observable<string> = new BehaviorSubject<string>('');
+
   id: string;
   tutor: Observable<Tutor>;
   tutorForm = new FormGroup({});
