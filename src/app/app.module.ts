@@ -4,7 +4,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { auth } from 'firebase';
+import { auth } from 'firebase/app';
 import { auth as authui } from 'firebaseui';
 import { FirebaseUIModule } from 'firebaseui-angular';
 import { environment } from 'src/environments/environment';
