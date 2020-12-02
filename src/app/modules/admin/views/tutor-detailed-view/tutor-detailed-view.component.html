@@ -12,12 +12,16 @@
             <mat-icon matSuffix>home</mat-icon>
         </mat-form-field> -->
         <mat-list style="width: 100%" role="list">
+            <h2 matSubheader>Informacje kontaktowe</h2>
             <app-editable-list-item formControlName="name">Imię i nazwisko</app-editable-list-item>
             <app-editable-list-item formControlName="email">Adres email</app-editable-list-item>
             <app-editable-list-item formControlName="phone">Nr telefonu</app-editable-list-item>
             <app-selectable-list-item formControlName="remoteOrStationary" [data]="lessonsModeData">
                 Preferowana forma korepetycji
             </app-selectable-list-item>
+            <mat-divider></mat-divider>
+            <h2 matSubheader>Przedmioty</h2>
         </mat-list>
+        <app-teaches-list-item formControlName="teaches"></app-teaches-list-item>
     </form>
 </div>

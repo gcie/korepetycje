@@ -45,7 +45,7 @@ export class TutorsListViewComponent implements OnInit {
       case 'teaches':
         return 'Uczy';
       case 'lessonsMode':
-        return 'PreferowanyTryb';
+        return 'Preferowany tryb';
       case 'pupil':
         return 'Uczeń?';
     }

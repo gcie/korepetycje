@@ -20,7 +20,7 @@ export class TutorDetailedViewComponent implements OnInit, AdminChild {
   tutorForm = new FormGroup({});
   tutorFormChangeSubscription: Subscription;
   initializedForm = false;
-
+  subjects = ['matematyka'];
   lessonsModeData = lessonsModeData;
 
   constructor(private route: ActivatedRoute, private tutors: TutorsService, private formBuilder: FormBuilder) {}

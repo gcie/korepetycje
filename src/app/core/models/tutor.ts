@@ -12,8 +12,16 @@ export interface Tutor {
       matura: boolean;
     };
   };
+  activeLessons: {
+    pupilId?: string;
+    pupilName?: string;
+    subject: string;
+    date: Date;
+    since: Date;
+    form: string;
+    notes: string;
+  };
   remoteOrStationary: LessonsMode;
-  pupilId?: string;
   notes: string;
   createdAt: Date;
   updatedAt: Date;

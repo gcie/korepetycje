@@ -22,6 +22,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AdminHomeComponent, TutorsListViewComponent, TutorDetailedViewComponent],
-  imports: [CommonModule, SharedModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, MaterialModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, MaterialModule, SharedModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)],
 })
 export class AdminModule {}
