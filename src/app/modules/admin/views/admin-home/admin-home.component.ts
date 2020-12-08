@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ActivatedRoute } from '@angular/router';
 import { User } from 'firebase';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -8,6 +7,7 @@ import { TutorsService } from 'src/app/core/services/tutors.service';
 
 export interface AdminChild {
   title: Observable<string>;
+  name: string;
   canGoBack?: boolean;
 }
 
@@ -18,22 +18,15 @@ export interface AdminChild {
 })
 export class AdminHomeComponent {
   user: User;
-  title: Observable<string> = new BehaviorSubject<string>('Konsola podprzęsłowego');
+  title: Observable<string> = new BehaviorSubject<string>('Konsola podprzęsłowego korepetycji MOSTowych');
 
-  constructor(
-    private angularFireAuth: AngularFireAuth,
-    public auth: AuthService,
-    public tutors: TutorsService,
-    private route: ActivatedRoute
-  ) {
+  navList = [
+    { label: 'Ustawienia', location: '/admin', componentName: 'home', isActive: true },
+    { label: 'Korepetytorzy', location: '/admin/tutors', componentName: 'tutorsList', isActive: false },
+  ];
+
+  constructor(private angularFireAuth: AngularFireAuth, public auth: AuthService, public tutors: TutorsService) {
     this.getUser();
-
-    this.route.params.subscribe((params) => {
-      console.log('[AdminHome] route params: ', params);
-    });
-    this.route.paramMap.subscribe((params) => {
-      console.log('[AdminHome] route paramMap: ', params);
-    });
   }
 
   async getUser() {
@@ -42,7 +35,10 @@ export class AdminHomeComponent {
   }
 
   onActivate(componentReference: AdminChild) {
+    console.log(componentReference);
     this.title = componentReference.title;
-    console.log('[AdminHome] onActivate: ', componentReference);
+    this.navList.forEach((link) => {
+      link.isActive = componentReference.name === link.componentName;
+    });
   }
 }
