@@ -12,11 +12,11 @@ export interface AdminChild {
 }
 
 @Component({
-  selector: 'app-admin-home',
-  templateUrl: './admin-home.component.html',
-  styleUrls: ['./admin-home.component.scss'],
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss'],
 })
-export class AdminHomeComponent {
+export class AdminComponent {
   user: User;
   title: Observable<string> = new BehaviorSubject<string>('Konsola podprzęsłowego korepetycji MOSTowych');
 

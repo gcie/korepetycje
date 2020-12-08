@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { lessonsModeData } from 'src/app/core/enum/lessons-mode.enum';
 import { Tutor } from 'src/app/core/models/tutor';
 import { TutorsService } from 'src/app/core/services/tutors.service';
-import { AdminChild } from '../admin-home/admin-home.component';
+import { AdminChild } from '../../admin.component';
 
 @Component({
   selector: 'app-tutor-detailed-view',

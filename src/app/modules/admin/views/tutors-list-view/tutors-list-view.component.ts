@@ -7,7 +7,7 @@ import { Tutor } from 'src/app/core/models/tutor';
 import { UserConfig } from 'src/app/core/models/user';
 import { TutorsService } from 'src/app/core/services/tutors.service';
 import { UserConfigService } from 'src/app/core/services/user-config.service';
-import { AdminChild } from '../admin-home/admin-home.component';
+import { AdminChild } from '../../admin.component';
 
 @Component({
   selector: 'app-tutors-list-view',
