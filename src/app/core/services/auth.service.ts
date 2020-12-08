@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of, throwError } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { User } from '../models/user';
 
@@ -11,18 +11,18 @@ import { User } from '../models/user';
 })
 export class AuthService {
   user: Observable<User | undefined>;
+  uid$ = new BehaviorSubject<string>(null);
 
   constructor(private fireAuth: AngularFireAuth, private firestore: AngularFirestore, private router: Router) {
     this.user = this.fireAuth.authState.pipe(
       mergeMap((authState) => {
-        console.log('[AuthService] authState:', authState);
         if (!authState) {
           return throwError('AuthState is none');
         }
+        this.uid$.next(authState.uid);
         return forkJoin({ doc: this.firestore.collection('users').doc(authState.uid).get(), authState: of(authState) });
       }),
       mergeMap(({ doc, authState }) => {
-        console.log('[AuthService] doc:', doc.data());
         if (!doc.data()) {
           const user: User = this.createNewUser(authState);
           return this.firestore
@@ -31,15 +31,13 @@ export class AuthService {
             .set(user)
             .then(() => user);
         } else {
-          return of(doc.data() as User);
+          return of(Object.assign({}, doc.data(), { uid: authState.uid }) as User);
         }
       }),
       map((user) => {
-        console.log('[AuthService] user:', user);
         return user;
       }),
       catchError(() => {
-        console.log('[AuthService] error');
         return of(undefined);
       })
     );
@@ -52,11 +50,16 @@ export class AuthService {
 
   createNewUser(authState: firebase.User): User {
     return {
+      uid: authState.uid,
       email: authState.email,
       permissions: {
         user: true,
         manager: false,
       },
     };
+  }
+
+  get uid() {
+    return this.uid$.value;
   }
 }

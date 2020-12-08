@@ -21,6 +21,10 @@ service cloud.firestore {
     match /users/{uid} {
       allow create: if request.auth.uid == uid && validateNewUser()
       allow read: if request.auth.uid == uid
+
+      match /data/{property} {
+        allow read, write: if true
+      }
     }
   }
 }

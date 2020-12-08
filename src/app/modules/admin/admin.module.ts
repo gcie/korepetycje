@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { UserConfigResolver } from 'src/app/core/resolvers/user-config.resolver';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { AdminHomeComponent } from './views/admin-home/admin-home.component';
@@ -14,7 +15,7 @@ const routes: Routes = [
     path: '',
     component: AdminHomeComponent,
     children: [
-      { path: 'tutors', component: TutorsListViewComponent },
+      { path: 'tutors', component: TutorsListViewComponent, resolve: { config: UserConfigResolver } },
       { path: 'tutor/:id', component: TutorDetailedViewComponent },
     ],
   },
