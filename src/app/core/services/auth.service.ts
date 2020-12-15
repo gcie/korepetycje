@@ -31,7 +31,7 @@ export class AuthService {
             .set(user)
             .then(() => user);
         } else {
-          return of(Object.assign({}, doc.data(), { uid: authState.uid }) as User);
+          return of(Object.assign({}, doc.data(), { uid: authState.uid, photoURL: authState.photoURL }) as User);
         }
       }),
       map((user) => {
@@ -51,6 +51,7 @@ export class AuthService {
   createNewUser(authState: firebase.User): User {
     return {
       uid: authState.uid,
+      photoURL: authState.photoURL,
       email: authState.email,
       permissions: {
         user: true,

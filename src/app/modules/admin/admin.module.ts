@@ -7,14 +7,17 @@ import { UserConfigResolver } from 'src/app/core/resolvers/user-config.resolver'
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { AdminComponent } from './admin.component';
+import { SettingsViewComponent } from './views/settings-view/settings-view.component';
 import { TutorDetailedViewComponent } from './views/tutor-detailed-view/tutor-detailed-view.component';
 import { TutorsListViewComponent } from './views/tutors-list-view/tutors-list-view.component';
 
 const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: '/admin/settings' },
   {
     path: '',
     component: AdminComponent,
     children: [
+      { path: 'settings', component: SettingsViewComponent, resolve: { config: UserConfigResolver } },
       { path: 'tutors', component: TutorsListViewComponent, resolve: { config: UserConfigResolver } },
       { path: 'tutor/:id', component: TutorDetailedViewComponent },
     ],
@@ -22,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TutorsListViewComponent, TutorDetailedViewComponent, AdminComponent],
+  declarations: [TutorsListViewComponent, TutorDetailedViewComponent, AdminComponent, SettingsViewComponent],
   imports: [CommonModule, MaterialModule, SharedModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)],
 })
 export class AdminModule {}

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { User } from 'firebase';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -19,13 +20,14 @@ export interface AdminChild {
 export class AdminComponent {
   user: User;
   title: Observable<string> = new BehaviorSubject<string>('Konsola podprzęsłowego korepetycji MOSTowych');
+  activeComponent: AdminChild;
 
   navList = [
-    { label: 'Ustawienia', location: '/admin', componentName: 'home', isActive: true },
+    { label: 'Ustawienia', location: '/admin/settings', componentName: 'settings', isActive: true },
     { label: 'Korepetytorzy', location: '/admin/tutors', componentName: 'tutorsList', isActive: false },
   ];
 
-  constructor(private angularFireAuth: AngularFireAuth, public auth: AuthService, public tutors: TutorsService) {
+  constructor(private angularFireAuth: AngularFireAuth, public auth: AuthService, public tutors: TutorsService, public router: Router) {
     this.getUser();
   }
 
@@ -35,8 +37,7 @@ export class AdminComponent {
   }
 
   onActivate(componentReference: AdminChild) {
-    console.log(componentReference);
-    this.title = componentReference.title;
+    this.activeComponent = componentReference;
     this.navList.forEach((link) => {
       link.isActive = componentReference.name === link.componentName;
     });

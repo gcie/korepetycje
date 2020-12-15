@@ -15,3 +15,13 @@
 .active {
   font-weight: 700;
 }
+
+.account-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+::ng-deep .mat-menu-item .mat-icon {
+  margin: 0 0 0 16px !important;
+}

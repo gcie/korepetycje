@@ -15,6 +15,7 @@ import { AdminChild } from '../../admin.component';
 export class TutorDetailedViewComponent implements OnInit, AdminChild {
   title: Subject<string> = new BehaviorSubject<string>('Korepetytorzy');
   name = 'tutorDetails';
+  canGoBack = true;
 
   id: string;
   tutor: Observable<Tutor>;

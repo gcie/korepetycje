@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <h1 class="mat-h1">Lista korepetytorów</h1>
+    <h2 class="mat-h2">Filtrowanie</h2>
 
     <mat-form-field appearance="fill">
         <mat-label>Kolumny</mat-label>
@@ -9,6 +9,9 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+
+    <h2 class="mat-h2">Lista korepetytorów</h2>
+
 
     <table mat-table [dataSource]="tutorsData" class="mat-elevation-z4 table">
         <ng-container matColumnDef="name">
@@ -45,6 +48,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="tutorsDisplayedColumns.value.concat(['settings'])"></tr>
-        <tr mat-row *matRowDef="let tutor; columns: tutorsDisplayedColumns.value.concat(['settings'])"></tr>
+        <tr mat-row *matRowDef="let tutor; columns: tutorsDisplayedColumns.value.concat(['settings'])"
+            (click)="edit(tutor)"></tr>
     </table>
 </div>
