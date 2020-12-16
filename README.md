@@ -10,6 +10,10 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 # Lista zmian
 
+## Wersja 1.1.2
+
+- bugfix: zmiana domyślnej ikony `favicon` na mostową
+- bugfix: zmiana domyślnego tytułu z 'Korepetycje' na 'Korepetycje MOSTowe'
 
 ## Wersja 1.1.1
 
