@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { User } from 'firebase';
+import firebase from 'firebase/app';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { TutorsService } from 'src/app/core/services/tutors.service';
@@ -18,7 +18,7 @@ export interface AdminChild {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent {
-  user: User;
+  user: firebase.User;
   title: Observable<string> = new BehaviorSubject<string>('Konsola podprzęsłowego korepetycji MOSTowych');
   activeComponent: AdminChild;
 

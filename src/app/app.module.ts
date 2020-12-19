@@ -4,7 +4,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { auth } from 'firebase/app';
+import firebase from 'firebase/app';
 import { auth as authui } from 'firebaseui';
 import { FirebaseUIModule } from 'firebaseui-angular';
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,7 @@ import { LoginModule } from './modules/login/login.module';
 const firebaseUiAuthConfig: authui.Config = {
   signInOptions: [
     {
-      provider: auth.GoogleAuthProvider.PROVIDER_ID,
+      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       clientId: environment.googleClientId,
     },
     {
@@ -25,11 +25,11 @@ const firebaseUiAuthConfig: authui.Config = {
       customParameters: {
         auth_type: 'reauthenticate',
       },
-      provider: auth.FacebookAuthProvider.PROVIDER_ID,
+      provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
     },
     {
       requireDisplayName: false,
-      provider: auth.EmailAuthProvider.PROVIDER_ID,
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
     },
   ],
   credentialHelper: authui.CredentialHelper.ACCOUNT_CHOOSER_COM,
