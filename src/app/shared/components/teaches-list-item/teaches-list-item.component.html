@@ -1,47 +1,38 @@
 <mat-list-item>
-    <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%">
-        <!-- <p matLine class="mat-body-strong caption" [fxFlex]="labelWidth">
+  <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%">
+    <!-- <p matLine class="mat-body-strong caption" [fxFlex]="labelWidth">
             Przedmioty
         </p> -->
-        <table fxFlex="fill">
-            <tr>
-                <th></th>
-                <th>szkoła podstawowa</th>
-                <th>szkoła średnia (podstawa)</th>
-                <th>matura rozszerzona</th>
-                <th>usuń</th>
-            </tr>
-            <tr *ngFor="let subject of subjects">
-                <td>{{ subject }}
-
-
-                </td>
-                <td>
-                    <mat-checkbox [(ngModel)]="value[subject]['sp']" (ngModelChange)="submit()">
-                    </mat-checkbox>
-                </td>
-                <td>
-                    <mat-checkbox [(ngModel)]="value[subject]['lo']" (ngModelChange)="submit()">
-                    </mat-checkbox>
-                </td>
-                <td>
-                    <mat-checkbox [(ngModel)]="value[subject]['matura']" (ngModelChange)="submit()">
-                    </mat-checkbox>
-                </td>
-                <td>
-                    <button mat-icon-button (click)="deleteSubject(subject)">
-                        <mat-icon>delete
-                        </mat-icon>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button mat-button (click)="addSubject()">
-                        <mat-icon>add</mat-icon><span class="mat-body">dodaj</span>
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <table fxFlex="fill">
+      <tr>
+        <th></th>
+        <th>szkoła podstawowa</th>
+        <th>szkoła średnia (podstawa)</th>
+        <th>matura rozszerzona</th>
+        <th>usuń</th>
+      </tr>
+      <tr *ngFor="let subject of subjects">
+        <td>{{ subject }}</td>
+        <td>
+          <mat-checkbox [(ngModel)]="value[subject]['sp']" (ngModelChange)="submit()"> </mat-checkbox>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="value[subject]['lo']" (ngModelChange)="submit()"> </mat-checkbox>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="value[subject]['matura']" (ngModelChange)="submit()"> </mat-checkbox>
+        </td>
+        <td>
+          <button mat-icon-button (click)="deleteSubject(subject)">
+            <mat-icon>delete </mat-icon>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button mat-button (click)="addSubject()"><mat-icon>add</mat-icon><span class="mat-body">dodaj</span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </mat-list-item>

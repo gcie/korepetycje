@@ -8,9 +8,8 @@ describe('TutorsListViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TutorsListViewComponent ]
-    })
-    .compileComponents();
+      declarations: [TutorsListViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('SelectableListItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectableListItemComponent ]
-    })
-    .compileComponents();
+      declarations: [SelectableListItemComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

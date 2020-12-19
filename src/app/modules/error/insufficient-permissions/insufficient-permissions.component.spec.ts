@@ -8,9 +8,8 @@ describe('InsufficientPermissionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InsufficientPermissionsComponent ]
-    })
-    .compileComponents();
+      declarations: [InsufficientPermissionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

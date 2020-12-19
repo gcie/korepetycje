@@ -8,9 +8,8 @@ describe('PromptStringValueDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PromptStringValueDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [PromptStringValueDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
