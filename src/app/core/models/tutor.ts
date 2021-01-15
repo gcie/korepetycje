@@ -23,6 +23,5 @@ export interface Tutor {
   };
   remoteOrStationary: LessonsMode;
   notes: string;
-  createdAt: Date;
-  updatedAt: Date;
+  submittedDate: Date;
 }

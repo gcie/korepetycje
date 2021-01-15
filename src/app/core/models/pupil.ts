@@ -20,4 +20,5 @@ export interface Pupil {
   submittedBy: 'himself' | 'parent';
   alreadyAttended: boolean;
   previousTutor: string;
+  submittedDate: Date;
 }

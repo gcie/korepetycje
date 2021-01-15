@@ -10,7 +10,7 @@ import { Pupil } from '../models/pupil';
 export class PupilsService {
   pupilsList$: Observable<Pupil[]> = this.firestore
     .collection('pupils')
-    .valueChanges()
+    .valueChanges({ idField: '_id' })
     .pipe(map((snapshot) => snapshot as Pupil[]));
 
   constructor(private firestore: AngularFirestore) {}

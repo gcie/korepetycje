@@ -10,7 +10,7 @@ import { Tutor } from '../models/tutor';
 export class TutorsService {
   tutorsList$: Observable<Tutor[]> = this.firestore
     .collection('tutors')
-    .valueChanges()
+    .valueChanges({ idField: '_id' })
     .pipe(map((snapshot) => snapshot as Tutor[]));
 
   constructor(private firestore: AngularFirestore) {}
@@ -24,7 +24,7 @@ export class TutorsService {
     return this.firestore
       .collection('tutors')
       .doc(id)
-      .valueChanges()
+      .valueChanges({ idField: '_id' })
       .pipe(map((snapshot) => snapshot as Tutor));
   }
 

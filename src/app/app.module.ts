@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
@@ -43,6 +44,7 @@ const firebaseUiAuthConfig: authui.Config = {
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireAnalyticsModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFirestoreModule,
     BrowserAnimationsModule,

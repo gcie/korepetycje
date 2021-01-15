@@ -19,8 +19,8 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
   name = 'tutorsList';
 
   tutorsData = new MatTableDataSource<Tutor>();
-  tutorsDisplayedColumns = new FormControl(['name', 'email', 'phone', 'teaches', 'lessonsMode', 'pupil']);
-  tutorsDisplayedColumnsList = ['name', 'email', 'phone', 'teaches', 'lessonsMode', 'pupil'];
+  tutorsDisplayedColumns = new FormControl(['submittedDate', 'name', 'email', 'phone', 'teaches', 'lessonsMode', 'pupil']);
+  tutorsDisplayedColumnsList = ['submittedDate', 'name', 'email', 'phone', 'teaches', 'lessonsMode', 'pupil'];
   tutors: Tutor[];
 
   constructor(public tutorsService: TutorsService, private router: Router, public user: UserConfigService, public route: ActivatedRoute) {
@@ -42,6 +42,8 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
 
   columnName(desc: string) {
     switch (desc) {
+      case 'submittedDate':
+        return 'Dana zgłoszenia';
       case 'name':
         return 'Imię i nazwisko';
       case 'email':
@@ -55,5 +57,10 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
       case 'pupil':
         return 'Uczeń?';
     }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.tutorsData.filter = filterValue.trim().toLowerCase();
   }
 }
