@@ -1,5 +1,10 @@
 .wrapper {
   padding: 12px;
+  > * {
+    max-width: 1600px;
+    width: 100%;
+    min-width: 800px;
+  }
 }
 
 .header {
@@ -8,4 +13,8 @@
 
 td {
   text-align: center;
+}
+
+.divider {
+  margin-bottom: 16px;
 }

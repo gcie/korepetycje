@@ -8,12 +8,14 @@ import { Tutor } from '../models/tutor';
   providedIn: 'root',
 })
 export class TutorsService {
-  tutorsList$: Observable<Tutor[]> = this.firestore
-    .collection('tutors')
-    .valueChanges({ idField: '_id' })
-    .pipe(map((snapshot) => snapshot as Tutor[]));
+  tutorsList$: Observable<Tutor[]>;
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) {
+    this.tutorsList$ = this.firestore
+      .collection('tutors')
+      .valueChanges({ idField: '_id' })
+      .pipe(map((snapshot) => snapshot as Tutor[]));
+  }
 
   createTutor(tutor: Tutor): Promise<DocumentReference> {
     return this.firestore.collection('tutors').add(tutor);

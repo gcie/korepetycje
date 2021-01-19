@@ -1,0 +1,25 @@
+<div fxLayout="row" fxLayoutAlign="start center" class="wrapper">
+    <p matLine class="caption" [fxFlex]="labelWidth">
+        <ng-content></ng-content>
+    </p>
+
+    <div *ngIf="!editMode" fxFlex="fill" fxFlexAlign="stretch" fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex="fill" class="mat-body-1 content" [innerHTML]="value?.replace('\n', '<br />')"></div>
+
+        <button mat-icon-button fxFlex="none" (click)="editMode = true">
+            <mat-icon class="mdi mdi-pencil icon"></mat-icon>
+        </button>
+    </div>
+
+    <div *ngIf="editMode" fxFlex="fill" fxFlexAlign="stretch" fxLayout="row" fxLayoutAlign="start center">
+
+        <mat-form-field fxFlex="fill">
+            <input *ngIf="type !== 'textarea'" matInput class="content-edit" [(ngModel)]="value" />
+            <textarea *ngIf="type === 'textarea'" matInput class="content-edit" [(ngModel)]="value"></textarea>
+        </mat-form-field>
+
+        <button mat-icon-button fxFlex="none" (click)="submit()">
+            <mat-icon class="mdi mdi-check icon"></mat-icon>
+        </button>
+    </div>
+</div>

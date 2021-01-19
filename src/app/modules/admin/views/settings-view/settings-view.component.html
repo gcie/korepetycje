@@ -1,14 +1,43 @@
-<div fxLayout="column" class="wrapper">
-  <form [formGroup]="settingsForm">
-    <mat-list style="width: 100%" role="list">
-      <h1 class="mat-headline">Ustawienia powiadomień</h1>
-      <h2 class="mat-title">Ustawienia powiadomień</h2>
-      <h2 class="mat-subheading-1">Ustawienia powiadomień</h2>
-      <h2 class="mat-subheading-2">Ustawienia powiadomień</h2>
-      <h1 matHeader>Test test</h1>
+<div fxLayout="column" class="wrapper" fxLayoutAlign="start center">
+  <mat-list style="width: 100%" role="list">
+    <h1 matHeader>Ustawienia powiadomień email</h1>
+    <div class="section" fxLayout="row" fxLayoutGap="32px">
+      <div fxFlex="40">
+        <h2 matSubheader>Powiadomienia o nowym uczniu</h2>
+        <p class="mat-small" style="padding: 8px;">Wysyłanie powiadomień email, gdy uczeń lub rodzic wypełnią formularz
+          zapisowy</p>
+      </div>
 
-      <mat-divider></mat-divider>
-      <h2 matSubheader>Przedmioty</h2>
-    </mat-list>
-  </form>
+      <form fxFlex [formGroup]="newPupilNotificationsFormGroup" fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxLayout="row">
+          <p fxFlex="50">Włączone</p>
+          <mat-slide-toggle formControlName="enabled" fxFlex="fill"></mat-slide-toggle>
+        </div>
+        <app-settings-item formControlName="toEmail" [labelWidth]="50">Adres email</app-settings-item>
+        <app-settings-item formControlName="subject" [labelWidth]="50" type="textarea">Temat</app-settings-item>
+        <app-settings-item formControlName="content" [labelWidth]="50" type="textarea">Treść</app-settings-item>
+      </form>
+    </div>
+
+
+    <mat-divider class="divider"></mat-divider>
+
+    <div class="section" fxLayout="row" fxLayoutGap="32px">
+      <div fxFlex="40">
+        <h2 matSubheader>Powiadomienia o nowym korepetytorze</h2>
+        <p class="mat-small" style="padding: 8px;">Wysyłanie powiadomień email, gdy student wypełni formularz
+          zapisowy</p>
+      </div>
+
+      <form fxFlex [formGroup]="newTutorNotificationsFormGroup" fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxLayout="row">
+          <p fxFlex="50">Włączone</p>
+          <mat-slide-toggle formControlName="enabled" fxFlex="fill"></mat-slide-toggle>
+        </div>
+        <app-settings-item formControlName="toEmail" [labelWidth]="50">Adres email</app-settings-item>
+        <app-settings-item formControlName="subject" [labelWidth]="50" type="textarea">Temat</app-settings-item>
+        <app-settings-item formControlName="content" [labelWidth]="50" type="textarea">Treść</app-settings-item>
+      </form>
+    </div>
+  </mat-list>
 </div>

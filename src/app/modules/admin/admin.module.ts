@@ -8,8 +8,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { AdminComponent } from './admin.component';
 import { SettingsViewComponent } from './views/settings-view/settings-view.component';
+import { SettingsViewResolver } from './views/settings-view/settings-view.resolver';
 import { TutorDetailedViewComponent } from './views/tutor-detailed-view/tutor-detailed-view.component';
 import { TutorsListViewComponent } from './views/tutors-list-view/tutors-list-view.component';
+import { SettingsItemComponent } from './components/settings-item/settings-item.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/admin/settings' },
@@ -17,7 +19,7 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: 'settings', component: SettingsViewComponent, resolve: { config: UserConfigResolver } },
+      { path: 'settings', component: SettingsViewComponent, resolve: { config: UserConfigResolver, data: SettingsViewResolver } },
       { path: 'tutors', component: TutorsListViewComponent, resolve: { config: UserConfigResolver } },
       { path: 'tutor/:id', component: TutorDetailedViewComponent },
     ],
@@ -25,7 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TutorsListViewComponent, TutorDetailedViewComponent, AdminComponent, SettingsViewComponent],
+  declarations: [TutorsListViewComponent, TutorDetailedViewComponent, AdminComponent, SettingsViewComponent, SettingsItemComponent],
   imports: [CommonModule, MaterialModule, SharedModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)],
 })
 export class AdminModule {}

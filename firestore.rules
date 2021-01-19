@@ -9,7 +9,9 @@ service cloud.firestore {
     function validateNewUser() {
       return request.resource.data.permissions.user == true && request.resource.data.permissions.manager == false
     }
-
+    match /admin/{document=**} {
+      allow read, write: if isManager()
+    }
     match /pupils/{pupil} {
       allow create: if true
       allow read, write: if isManager()
