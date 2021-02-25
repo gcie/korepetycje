@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { lessonsModeData } from 'src/app/core/enum/lessons-mode.enum';
 import { Tutor } from 'src/app/core/models/tutor';
 import { UserConfig } from 'src/app/core/models/user';
 import { TutorsService } from 'src/app/core/services/tutors.service';
@@ -25,6 +27,31 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
 
   constructor(public tutorsService: TutorsService, private router: Router, public user: UserConfigService, public route: ActivatedRoute) {
     this.route.data.subscribe((data) => this.init(data.config));
+    this.tutorsData.filterPredicate = (tutor: Tutor, filter: string) => {
+      const results = filter.split(';').map((fstr) => {
+        if (tutor.name?.toLowerCase().includes(fstr)) return true;
+        if (tutor.email?.toLowerCase().includes(fstr)) return true;
+        if (tutor.phone?.toLowerCase().includes(fstr)) return true;
+        if (tutor.remoteOrStationary) if (lessonsModeData[tutor.remoteOrStationary].toLowerCase().includes(fstr)) return true;
+        if (tutor.submittedDate?.toString().includes(fstr)) return true;
+        if (tutor.notes?.includes(fstr)) return true;
+        if (tutor.teaches) {
+          if (!!Object.keys(tutor.teaches).find((subject) => subject.includes(fstr))) return true;
+          if (
+            !!Object.keys(tutor.teaches).find((subject) => {
+              return !!Object.keys(tutor.teaches[subject])
+                .filter((level) => tutor.teaches[subject][level])
+                .find((level) => {
+                  if ((subject + '-' + level).includes(fstr)) return true;
+                });
+            })
+          )
+            return true;
+        }
+        return false;
+      });
+      return results.reduce((a, b) => a && b, true);
+    };
   }
 
   init(config: UserConfig) {
@@ -32,7 +59,7 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
   }
 
   ngOnInit() {
-    this.tutorsService.tutorsList$.subscribe((tutors) => (this.tutorsData.data = this.tutors = tutors));
+    this.tutorsService.tutorsList$.pipe(tap(console.log)).subscribe((tutors) => (this.tutorsData.data = this.tutors = tutors));
     this.tutorsDisplayedColumns.valueChanges.subscribe((value) => (this.user.tutorsListDisplayedColumns = value));
   }
 

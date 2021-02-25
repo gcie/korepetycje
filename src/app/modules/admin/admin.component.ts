@@ -25,6 +25,7 @@ export class AdminComponent {
   navList = [
     { label: 'Ustawienia', location: '/admin/settings', componentName: 'settings', isActive: true },
     { label: 'Korepetytorzy', location: '/admin/tutors', componentName: 'tutorsList', isActive: false },
+    { label: 'Uczniowie', location: '/admin/pupils', componentName: 'pupilsList', isActive: false },
   ];
 
   constructor(private angularFireAuth: AngularFireAuth, public auth: AuthService, public tutors: TutorsService, public router: Router) {

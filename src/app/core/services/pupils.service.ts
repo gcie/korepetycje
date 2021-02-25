@@ -18,4 +18,16 @@ export class PupilsService {
   createPupil(pupil: Pupil): Promise<DocumentReference> {
     return this.firestore.collection('pupils').add(pupil);
   }
+
+  getPupil(id: string): Observable<Pupil> {
+    return this.firestore
+      .collection('pupils')
+      .doc(id)
+      .valueChanges({ idField: '_id' })
+      .pipe(map((snapshot) => snapshot as Pupil));
+  }
+
+  updatePupil(id: string, pupil: Partial<Pupil>) {
+    return this.firestore.collection('pupils').doc(id).update(pupil);
+  }
 }

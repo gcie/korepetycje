@@ -48,4 +48,8 @@ export class UserConfigService {
   set tutorsListDisplayedColumns(value: string[]) {
     this.firestore.collection(`users/${this.auth.uid}/data`).doc('metadata').update({ tutorsListDisplayedColumns: value });
   }
+
+  set pupilsListDisplayedColumns(value: string[]) {
+    this.firestore.collection(`users/${this.auth.uid}/data`).doc('metadata').update({ pupilsListDisplayedColumns: value });
+  }
 }

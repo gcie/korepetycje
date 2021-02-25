@@ -9,4 +9,5 @@ export interface User {
 
 export interface UserConfig {
   tutorsListDisplayedColumns?: string[];
+  pupilsListDisplayedColumns?: string[];
 }

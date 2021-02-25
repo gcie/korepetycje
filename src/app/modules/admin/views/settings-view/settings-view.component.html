@@ -10,7 +10,7 @@
 
       <form fxFlex [formGroup]="newPupilNotificationsFormGroup" fxLayout="column" fxLayoutAlign="start stretch">
         <div fxLayout="row">
-          <p fxFlex="50">Włączone</p>
+          <p fxFlex="50">{{ newPupilNotificationsFormGroup.value.enabled ? 'Włączone' : 'Wyłączone' }}</p>
           <mat-slide-toggle formControlName="enabled" fxFlex="fill"></mat-slide-toggle>
         </div>
         <app-settings-item formControlName="toEmail" [labelWidth]="50">Adres email</app-settings-item>
@@ -31,7 +31,7 @@
 
       <form fxFlex [formGroup]="newTutorNotificationsFormGroup" fxLayout="column" fxLayoutAlign="start stretch">
         <div fxLayout="row">
-          <p fxFlex="50">Włączone</p>
+          <p fxFlex="50">{{ newTutorNotificationsFormGroup.value.enabled ? 'Włączone' : 'Wyłączone' }}</p>
           <mat-slide-toggle formControlName="enabled" fxFlex="fill"></mat-slide-toggle>
         </div>
         <app-settings-item formControlName="toEmail" [labelWidth]="50">Adres email</app-settings-item>

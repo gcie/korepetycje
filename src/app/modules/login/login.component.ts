@@ -20,14 +20,19 @@ export class LoginComponent implements OnInit {
     console.log('[LoginComponent]', 'onInit');
     this.route.queryParams
       .pipe(
+        // timeout(2000),
         mergeMap((params) => {
           this.returnUrl = params['return'] || '/';
           return this.auth.user;
         })
       )
-      .subscribe((user) => {
-        if (user) this.router.navigateByUrl(this.returnUrl);
-        this.userResolved = true;
+      .subscribe({
+        next: (user) => {
+          console.log(user);
+          if (user) this.router.navigateByUrl(this.returnUrl);
+          this.userResolved = true;
+        },
+        error: (err) => console.error(err),
       });
   }
 

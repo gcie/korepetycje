@@ -4,6 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../modules/material/material.module';
 import { EditableListItemComponent } from './components/editable-list-item/editable-list-item.component';
+import { EditDialogComponent } from './components/editable-list-list-item/edit-dialog/edit-dialog.component';
+import { EditableListListItemComponent } from './components/editable-list-list-item/editable-list-list-item.component';
 import { MultiselectCheckboxComponent } from './components/multiselect-checkbox/multiselect-checkbox.component';
 import { NoopCheckboxComponent } from './components/noop-checkbox/noop-checkbox.component';
 import { PromptStringValueDialogComponent } from './components/prompt-string-value-dialog/prompt-string-value-dialog.component';
@@ -17,22 +19,26 @@ import { TeachesPipe } from './pipes/teaches.pipe';
     NoopCheckboxComponent,
     MultiselectCheckboxComponent,
     EditableListItemComponent,
+    EditableListListItemComponent,
     SelectableListItemComponent,
     TeachesPipe,
     LessonsModePipe,
     TeachesListItemComponent,
     PromptStringValueDialogComponent,
+    EditDialogComponent,
   ],
   imports: [CommonModule, FlexLayoutModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [
     NoopCheckboxComponent,
     MultiselectCheckboxComponent,
     EditableListItemComponent,
+    EditableListListItemComponent,
     SelectableListItemComponent,
     TeachesPipe,
     LessonsModePipe,
     TeachesListItemComponent,
     PromptStringValueDialogComponent,
+    EditDialogComponent,
   ],
 })
 export class SharedModule {}

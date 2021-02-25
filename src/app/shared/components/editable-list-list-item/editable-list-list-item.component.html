@@ -1,0 +1,13 @@
+<mat-list-item>
+    <div fxLayout="row" fxLayoutAlign="start center" class="wrapper">
+        <p matLine class="mat-body-strong caption" [fxFlex]="labelWidth">
+            <ng-content></ng-content>
+        </p>
+
+        <p fxFlex="fill" class="mat-body-2 content" [innerHTML]="formattedValue"></p>
+
+        <button fxFlex="none" mat-icon-button (click)="edit()">
+            <mat-icon class="mdi mdi-pencil icon"></mat-icon>
+        </button>
+    </div>
+</mat-list-item>
