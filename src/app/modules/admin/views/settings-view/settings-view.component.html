@@ -6,6 +6,15 @@
         <h2 matSubheader>Powiadomienia o nowym uczniu</h2>
         <p class="mat-small" style="padding: 8px;">Wysyłanie powiadomień email, gdy uczeń lub rodzic wypełnią formularz
           zapisowy</p>
+        <p>W treści i temacie wiadomości można używać następujących danych z formularza:</p>
+        <ul>
+          <li>&#123;name&#125; - imię i nazwisko</li>
+          <li>&#123;contactEmail&#125; - email kontaktowy</li>
+          <li>&#123;class&#125; - klasa</li>
+          <li>&#123;phone&#125; - nr telefonu</li>
+          <li>&#123;needs&#125; - lista przedmiotów sprawiających problemy rozdzielona przecinkami</li>
+          <li>&#123;mainNeeds&#125; - (najbardziej) problematyczny przedmiot</li>
+        </ul>
       </div>
 
       <form fxFlex [formGroup]="newPupilNotificationsFormGroup" fxLayout="column" fxLayoutAlign="start stretch">
@@ -13,9 +22,30 @@
           <p fxFlex="50">{{ newPupilNotificationsFormGroup.value.enabled ? 'Włączone' : 'Wyłączone' }}</p>
           <mat-slide-toggle formControlName="enabled" fxFlex="fill"></mat-slide-toggle>
         </div>
-        <app-settings-item formControlName="toEmail" [labelWidth]="50">Adres email</app-settings-item>
-        <app-settings-item formControlName="subject" [labelWidth]="50" type="textarea">Temat</app-settings-item>
-        <app-settings-item formControlName="content" [labelWidth]="50" type="textarea">Treść</app-settings-item>
+
+        <div fxLayout="row" fxLayoutGap="8px">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Od</mat-label>
+            <input matInput formControlName="fromString" />
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Do</mat-label>
+            <input matInput formControlName="toEmail" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Temat</mat-label>
+            <input matInput formControlName="subject" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Treść</mat-label>
+            <textarea matInput formControlName="content" rows="10"></textarea>
+          </mat-form-field>
+        </div>
       </form>
     </div>
 
@@ -27,6 +57,13 @@
         <h2 matSubheader>Powiadomienia o nowym korepetytorze</h2>
         <p class="mat-small" style="padding: 8px;">Wysyłanie powiadomień email, gdy student wypełni formularz
           zapisowy</p>
+        <p>W treści i temacie wiadomości można używać następujących danych z formularza:</p>
+        <ul>
+          <li>&#123;name&#125; - imię i nazwisko</li>
+          <li>&#123;email&#125; - email</li>
+          <li>&#123;phone&#125; - nr telefonu</li>
+          <li>&#123;teaches&#125; - lista przedmiotów, które może uczyć</li>
+        </ul>
       </div>
 
       <form fxFlex [formGroup]="newTutorNotificationsFormGroup" fxLayout="column" fxLayoutAlign="start stretch">
@@ -34,10 +71,38 @@
           <p fxFlex="50">{{ newTutorNotificationsFormGroup.value.enabled ? 'Włączone' : 'Wyłączone' }}</p>
           <mat-slide-toggle formControlName="enabled" fxFlex="fill"></mat-slide-toggle>
         </div>
-        <app-settings-item formControlName="toEmail" [labelWidth]="50">Adres email</app-settings-item>
-        <app-settings-item formControlName="subject" [labelWidth]="50" type="textarea">Temat</app-settings-item>
-        <app-settings-item formControlName="content" [labelWidth]="50" type="textarea">Treść</app-settings-item>
+
+        <div fxLayout="row" fxLayoutGap="8px">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Od</mat-label>
+            <input matInput formControlName="fromString" />
+          </mat-form-field>
+
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Do</mat-label>
+            <input matInput formControlName="toEmail" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Temat</mat-label>
+            <input matInput formControlName="subject" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <mat-form-field fxFlex appearance="outline">
+            <mat-label>Treść</mat-label>
+            <textarea matInput formControlName="content" rows="10"></textarea>
+          </mat-form-field>
+        </div>
       </form>
     </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button mat-raised-button (click)="save()" [disabled]="!dirty" color="primary">Zapisz zmiany</button>
+    </div>
+
   </mat-list>
 </div>

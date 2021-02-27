@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { CanDeactivateGuard } from 'src/app/core/guards/can-deactivate.guard';
 import { UserConfigResolver } from 'src/app/core/resolvers/user-config.resolver';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
@@ -21,7 +22,12 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: 'settings', component: SettingsViewComponent, resolve: { config: UserConfigResolver, data: SettingsViewResolver } },
+      {
+        path: 'settings',
+        component: SettingsViewComponent,
+        resolve: { config: UserConfigResolver, data: SettingsViewResolver },
+        canDeactivate: [CanDeactivateGuard],
+      },
       { path: 'tutors', component: TutorsListViewComponent, resolve: { config: UserConfigResolver } },
       { path: 'pupils', component: PupilsListViewComponent, resolve: { config: UserConfigResolver } },
       { path: 'tutor/:id', component: TutorDetailedViewComponent },

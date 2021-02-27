@@ -29,7 +29,7 @@ export class AdminService {
     this.newPupilNotificationsDoc = this.adminCollection.doc(this.NEW_PUPIL_NOTIFICATIONS_DOC_STR);
     this.newTutorNotificationsDoc = this.adminCollection.doc(this.NEW_TUTOR_NOTIFICATIONS_DOC_STR);
     // initialize observables
-    this.newPupilNotifications$ = this.newPupilNotificationsDoc.valueChanges().pipe(map((snapsshot) => snapsshot as NewPupilNotifications));
+    this.newPupilNotifications$ = this.newPupilNotificationsDoc.valueChanges().pipe(map((snapshot) => snapshot as NewPupilNotifications));
     this.newTutorNotifications$ = this.newTutorNotificationsDoc.valueChanges().pipe(map((snapshot) => snapshot as NewTutorNotifications));
   }
 
