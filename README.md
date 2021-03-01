@@ -10,6 +10,12 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 # Lista zmian
 
+## Wersja 1.2.0
+
+- **feature: konsola administratora** z możliwością przeglądania aktualnie zgłoszonych uczniów i korepetytorów oraz modyfikowania ustawień powiadomień email o nowym uczniu/korepetytorze. Zabezpieczona mechanizmem logowania.
+- bugfix: zmiana maila z 'grzechu1997@gmail.com' do 'sda.most.korepetycje@gmail.com'
+- bugfix: poprawione zapisywanie daty zgłoszenia ucznia i korepetytora
+
 ## Wersja 1.1.2
 
 - bugfix: zmiana domyślnej ikony `favicon` na mostową
@@ -30,4 +36,3 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 - możliwość zgłaszania się do korepetycji przez uczniów
 - możliwość zgłaszania dziecka przez rodzica
 - możliwość zgłoszenia się studenta jako korepetytora
-
