@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { take } from 'rxjs/operators';
-import { PupilsService } from 'src/app/services/pupils.service';
+import { PupilsService } from 'src/app/core/services/pupils.service';
 
 @Component({
   selector: 'app-home',

@@ -3,8 +3,8 @@
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 @import './theme/main-theme.scss';
-@import '~firebaseui/dist//firebaseui.css';
-
+@import '~firebaseui/dist/firebaseui.css';
+@import '~@mdi/font/scss/materialdesignicons.scss';
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -48,4 +48,17 @@ body {
 
 .alert {
   color: map-get($korepetycje-warn, default);
+}
+.bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #81c2fa;
+}
+.mat-form-field-prefix .mdi,
+.mat-form-field-suffix .mdi {
+  font-size: 150%;
+  line-height: 1.125;
 }

@@ -1,0 +1,26 @@
+<mat-toolbar color="primary" fxLayout="row">
+  <button *ngIf="activeComponent.canGoBack" mat-icon-button (click)="router.location.back()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <span>{{ title | async }}</span>
+  <span fxFlex></span>
+  <button mat-icon-button [matMenuTriggerFor]="usermenu">
+    <img [src]="user?.photoURL" class="account-icon" />
+  </button>
+  <mat-menu #usermenu>
+    <button mat-menu-item (click)="auth.logout()">Wyloguj <mat-icon>exit_to_app</mat-icon></button>
+  </mat-menu>
+</mat-toolbar>
+<mat-drawer-container class="container">
+  <mat-drawer #drawer mode="side" opened>
+    <mat-nav-list>
+      <a *ngFor="let link of navList" mat-list-item [class.active]="link.isActive" [routerLink]="link.location">
+        {{ link.label }}
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

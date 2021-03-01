@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  @media (max-width: 599px) {
+    height: calc(100vh - 56px);
+  }
+  //   margin: 12px;
+  //   border: 1px solid #555;
+}
+
+.active {
+  font-weight: 700;
+}
+
+.account-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+::ng-deep .mat-menu-item .mat-icon {
+  margin: 0 0 0 16px !important;
+}

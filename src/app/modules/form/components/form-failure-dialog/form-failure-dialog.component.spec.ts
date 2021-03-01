@@ -8,9 +8,8 @@ describe('FormFailureDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormFailureDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [FormFailureDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('CovidAlertDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CovidAlertDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CovidAlertDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

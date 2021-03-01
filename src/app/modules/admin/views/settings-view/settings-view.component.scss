@@ -1,0 +1,20 @@
+.wrapper {
+  padding: 12px;
+  > * {
+    max-width: 1600px;
+    width: 100%;
+    min-width: 800px;
+  }
+}
+
+.header {
+  margin: 24px 24px 12px;
+}
+
+td {
+  text-align: center;
+}
+
+.divider {
+  margin-bottom: 16px;
+}

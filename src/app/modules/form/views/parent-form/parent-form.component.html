@@ -1,128 +1,123 @@
 <div class="bg"></div>
 <div fxLayout="row" fxLayoutAlign="center stretch">
-    <div class="wrapper">
-        <mat-card class="sm-card-reduce-pd">
-            <mat-card-title style="text-align: center;">
-                Korepetycje MOSTowe <br /><br />
-                formularz dla rodzica
-            </mat-card-title>
-            <mat-card-content style="width: 100%;">
-                <mat-vertical-stepper #stepper linear style="width: 100%;">
-                    <mat-step [stepControl]="contactForm">
-                        <form [formGroup]="contactForm" fxLayout="column">
-                            <ng-template matStepLabel>Dane kontaktowe (rodzica)</ng-template>
-                            <mat-form-field>
-                                <mat-label>Imię i nazwisko</mat-label>
-                                <input matInput formControlName="parentName" required>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Adres email</mat-label>
-                                <input matInput formControlName="parentEmail" required>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Nr telefonu</mat-label>
-                                <input matInput formControlName="parentPhone">
-                            </mat-form-field>
+  <div class="wrapper">
+    <mat-card class="sm-card-reduce-pd">
+      <mat-card-title style="text-align: center">
+        <span class="mat-display-1"> Korepetycje MOSTowe </span> <br /><br />
+        formularz dla rodzica
+      </mat-card-title>
+      <mat-card-content style="width: 100%">
+        <mat-vertical-stepper #stepper linear style="width: 100%">
+          <mat-step [stepControl]="contactForm">
+            <form [formGroup]="contactForm" fxLayout="column">
+              <ng-template matStepLabel>Dane kontaktowe (rodzica)</ng-template>
+              <mat-form-field>
+                <mat-label>Imię i nazwisko</mat-label>
+                <input matInput formControlName="parentName" required />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Adres email</mat-label>
+                <input matInput formControlName="parentEmail" required />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Nr telefonu</mat-label>
+                <input matInput formControlName="parentPhone" />
+              </mat-form-field>
 
-                            <div style="padding-top: 16px;">
-                                <button mat-raised-button color="accent" [disabled]="!contactForm.valid"
-                                    matStepperNext>Dalej</button>
-                            </div>
-                        </form>
-                    </mat-step>
-                    <mat-step [stepControl]="pupilForm">
-                        <form [formGroup]="pupilForm" fxLayout="column" fxLayoutGap="8px">
-                            <ng-template matStepLabel>Informacje dot. korepetycji</ng-template>
-                            <div fxLayout="column">
-                                <mat-form-field>
-                                    <mat-label>Imię i nazwisko dziecka</mat-label>
-                                    <input matInput formControlName="name" required>
-                                </mat-form-field>
+              <div style="padding-top: 16px">
+                <button mat-raised-button color="accent" [disabled]="!contactForm.valid" matStepperNext>Dalej</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="pupilForm">
+            <form [formGroup]="pupilForm" fxLayout="column" fxLayoutGap="8px">
+              <ng-template matStepLabel>Informacje dot. korepetycji</ng-template>
+              <div fxLayout="column">
+                <mat-form-field>
+                  <mat-label>Imię i nazwisko dziecka</mat-label>
+                  <input matInput formControlName="name" required />
+                </mat-form-field>
 
-                                <mat-form-field>
-                                    <mat-label>Adres email dziecka</mat-label>
-                                    <input matInput formControlName="email">
-                                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Adres email dziecka</mat-label>
+                  <input matInput formControlName="email" />
+                </mat-form-field>
 
-                                <mat-form-field>
-                                    <mat-label>Nr telefonu dziecka</mat-label>
-                                    <input matInput formControlName="phone">
-                                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Nr telefonu dziecka</mat-label>
+                  <input matInput formControlName="phone" />
+                </mat-form-field>
 
-                                <mat-form-field>
-                                    <mat-label>Szkoła i klasa</mat-label>
-                                    <input matInput formControlName="class" required>
-                                </mat-form-field>
-                            </div>
+                <mat-form-field>
+                  <mat-label>Szkoła i klasa</mat-label>
+                  <input matInput formControlName="class" required />
+                </mat-form-field>
+              </div>
 
-                            <h1 class="mat-h1">Jakie przedmioty sprawiają dziecku trudność?</h1>
-                            <div>
-                                <multiselect-checkbox formControlName="needs" allowCustom="3"
-                                    customPlaceholder="inny...">
-                                </multiselect-checkbox>
-                                <div *ngIf="pupilForm.get('needs')!.invalid && (pupilForm.get('needs')!.dirty || pupilForm.get('needs')!.touched)"
-                                    class="alert mat-small">Wybierz co najmniej 1 przedmiot
-                                </div>
-                            </div>
+              <h1 class="mat-h1">Jakie przedmioty sprawiają dziecku trudność?</h1>
+              <div>
+                <multiselect-checkbox formControlName="needs" allowCustom="3" customPlaceholder="inny..."> </multiselect-checkbox>
+                <div
+                  *ngIf="pupilForm.get('needs')!.invalid && (pupilForm.get('needs')!.dirty || pupilForm.get('needs')!.touched)"
+                  class="alert mat-small"
+                >
+                  Wybierz co najmniej 1 przedmiot
+                </div>
+              </div>
 
-                            <div *ngIf="wybranePrzedmioty.length > 1" fxLayout="column" fxLayoutGap="8px">
-                                <h2 class="mat-h2">Który z nich najbardziej?</h2>
-                                <span class="mat-body-2">Czasami ciężko nam znaleźć korepetytora, który chciałby uczyć
-                                    więcej niż jeden przedmiot.</span>
-                                <mat-radio-group fxLayout="column" formControlName="mainNeeds">
-                                    <mat-radio-button *ngFor="let przedmiot of wybranePrzedmioty" [value]="przedmiot">
-                                        {{ przedmiot }}</mat-radio-button>
-                                </mat-radio-group>
-                            </div>
+              <div *ngIf="wybranePrzedmioty.length > 1" fxLayout="column" fxLayoutGap="8px">
+                <h2 class="mat-h2">Który z nich najbardziej?</h2>
+                <span class="mat-body-2">Czasami ciężko nam znaleźć korepetytora, który chciałby uczyć więcej niż jeden przedmiot.</span>
+                <mat-radio-group fxLayout="column" formControlName="mainNeeds">
+                  <mat-radio-button *ngFor="let przedmiot of wybranePrzedmioty" [value]="przedmiot"> {{ przedmiot }}</mat-radio-button>
+                </mat-radio-group>
+              </div>
 
-                            <h1 class="mat-h1">Jaka forma korepetycji będzie najodpowiedniejsza? Zdalnie czy
-                                stacjonarnie w Moście?</h1>
-                            <p>Ze względu na epidemię duszpasterstwo MOST zostało zamknięte do odwołania, więc
-                                zaznaczenie opcji "Tylko w Moście" skutkować będzie (prawdopodobnie długim) oczekiwaniem
-                                na otwarcie duszpasterstwa.</p>
+              <h1 class="mat-h1">Jaka forma korepetycji będzie najodpowiedniejsza? Zdalnie czy stacjonarnie w Moście?</h1>
+              <p>
+                Ze względu na epidemię duszpasterstwo MOST zostało zamknięte do odwołania, więc zaznaczenie opcji "Tylko w Moście" skutkować
+                będzie (prawdopodobnie długim) oczekiwaniem na otwarcie duszpasterstwa.
+              </p>
 
-                            <mat-radio-group fxLayout="column" formControlName="remoteOrStationary">
-                                <mat-radio-button [value]="5">Tylko zdalnie</mat-radio-button>
-                                <mat-radio-button [value]="4">Lepiej zdalnie, ale może być w Moście</mat-radio-button>
-                                <mat-radio-button [value]="3">Bez różnicy</mat-radio-button>
-                                <mat-radio-button [value]="2">Lepiej w Moście, ale może być zdalnie</mat-radio-button>
-                                <mat-radio-button [value]="1">Tylko w Moście</mat-radio-button>
-                            </mat-radio-group>
+              <mat-radio-group fxLayout="column" formControlName="remoteOrStationary">
+                <mat-radio-button [value]="5">Tylko zdalnie</mat-radio-button>
+                <mat-radio-button [value]="4">Lepiej zdalnie, ale może być w Moście</mat-radio-button>
+                <mat-radio-button [value]="3">Bez różnicy</mat-radio-button>
+                <mat-radio-button [value]="2">Lepiej w Moście, ale może być zdalnie</mat-radio-button>
+                <mat-radio-button [value]="1">Tylko w Moście</mat-radio-button>
+              </mat-radio-group>
 
-                            <h1 class="mat-h1">Czy dziecko uczęszczało już wcześniej na korepetycje w Moście?</h1>
+              <h1 class="mat-h1">Czy dziecko uczęszczało już wcześniej na korepetycje w Moście?</h1>
 
-                            <mat-radio-group fxLayout="column" formControlName="alreadyAttended">
-                                <mat-radio-button [value]="true">Tak</mat-radio-button>
-                                <mat-radio-button [value]="false">Nie</mat-radio-button>
-                            </mat-radio-group>
+              <mat-radio-group fxLayout="column" formControlName="alreadyAttended">
+                <mat-radio-button [value]="true">Tak</mat-radio-button>
+                <mat-radio-button [value]="false">Nie</mat-radio-button>
+              </mat-radio-group>
 
-                            <h2 *ngIf="pupilForm.get('alreadyAttended')?.value" class="mat-h2">A
-                                pamiętasz imię i/lub nazwisko poprzedniego tutora?</h2>
+              <h2 *ngIf="pupilForm.get('alreadyAttended')?.value" class="mat-h2">A pamiętasz imię i/lub nazwisko poprzedniego tutora?</h2>
 
-                            <mat-form-field *ngIf="pupilForm.get('alreadyAttended')?.value">
-                                <mat-label>Imię i/lub nazwisko</mat-label>
-                                <input matInput formControlName="previousTutor">
-                            </mat-form-field>
+              <mat-form-field *ngIf="pupilForm.get('alreadyAttended')?.value">
+                <mat-label>Imię i/lub nazwisko</mat-label>
+                <input matInput formControlName="previousTutor" />
+              </mat-form-field>
 
-                            <div fxLayout="row" fxLayoutGap="8px">
-                                <button mat-button matStepperPrevious>Wstecz</button>
-                                <button mat-raised-button matStepperNext color="accent"
-                                    [disabled]="!pupilForm.valid">Dalej</button>
-                            </div>
-                        </form>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Klauzule informacyjne</ng-template>
-                        <app-form-clauses [formGroup]="clausesForm">
-                            <div fxLayout="row" fxLayoutGap="8px">
-                                <button mat-button matStepperPrevious>Wstecz</button>
-                                <button mat-raised-button matStepperNext color="accent" [disabled]="!clausesForm?.valid"
-                                    (click)="submit()">Wyślij</button>
-                            </div>
-                        </app-form-clauses>
-                    </mat-step>
-                </mat-vertical-stepper>
-            </mat-card-content>
-        </mat-card>
-    </div>
+              <div fxLayout="row" fxLayoutGap="8px">
+                <button mat-button matStepperPrevious>Wstecz</button>
+                <button mat-raised-button matStepperNext color="accent" [disabled]="!pupilForm.valid">Dalej</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Klauzule informacyjne</ng-template>
+            <app-form-clauses [formGroup]="clausesForm">
+              <div fxLayout="row" fxLayoutGap="8px">
+                <button mat-button matStepperPrevious>Wstecz</button>
+                <button mat-raised-button matStepperNext color="accent" [disabled]="!clausesForm?.valid" (click)="submit()">Wyślij</button>
+              </div>
+            </app-form-clauses>
+          </mat-step>
+        </mat-vertical-stepper>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

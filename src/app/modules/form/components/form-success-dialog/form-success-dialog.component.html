@@ -1,17 +1,20 @@
 <h1 mat-dialog-title>Dziękujemy za wypełnienie formularza</h1>
 <mat-dialog-content class="mat-typography">
-    <p *ngIf="data.mode === 'pupil'">Zgłosiłeś/zgłosiłaś chęć udziału w korepetycjach MOSTowych. Szukanie korepetytora
-        może chwilę zająć, także nie przejmuj się jeśli nie dostaniesz natychmiast odpowiedzi - podprzęsłowy od
-        korepetycji już o Tobie wie. Będziemy się z Tobą kontaktować na adres {{ data.email }} - nie zapomnij go
-        sprawdzać!</p>
-    <p *ngIf="data.mode === 'parent'">Zgłosiłeś/zgłosiłaś swoje dziecko udziału w korepetycjach MOSTowych. Szukanie
-        korepetytora może chwilę zająć, także nie przejmuj się jeśli nie dostaniesz natychmiast odpowiedzi -
-        podprzęsłowy od korepetycji już o Tobie wie. Będziemy się z Tobą kontaktować na adres {{ data.email }} - nie
-        zapomnij go sprawdzać!</p>
-    <p *ngIf="data.mode === 'tutor'">Zgłosiłeś/zgłosiłaś się do udziału w korepetycjach MOSTowych. Jeśli znajdzie się
-        chętny, to podprzęsłowy będzie kontaktować się z Tobą na adres {{ data.email }} - nie
-        zapomnij go regularnie sprawdzać!</p>
+  <p *ngIf="data.mode === 'pupil'">
+    Zgłosiłeś/zgłosiłaś chęć udziału w korepetycjach MOSTowych. Szukanie korepetytora może chwilę zająć, także nie przejmuj się jeśli nie
+    dostaniesz natychmiast odpowiedzi - podprzęsłowy od korepetycji już o Tobie wie. Będziemy się z Tobą kontaktować na adres
+    {{ data.email }} - nie zapomnij go sprawdzać!
+  </p>
+  <p *ngIf="data.mode === 'parent'">
+    Zgłosiłeś/zgłosiłaś swoje dziecko udziału w korepetycjach MOSTowych. Szukanie korepetytora może chwilę zająć, także nie przejmuj się
+    jeśli nie dostaniesz natychmiast odpowiedzi - podprzęsłowy od korepetycji już o Tobie wie. Będziemy się z Tobą kontaktować na adres
+    {{ data.email }} - nie zapomnij go sprawdzać!
+  </p>
+  <p *ngIf="data.mode === 'tutor'">
+    Zgłosiłeś/zgłosiłaś się do udziału w korepetycjach MOSTowych. Jeśli znajdzie się chętny, to podprzęsłowy będzie kontaktować się z Tobą
+    na adres {{ data.email }} - nie zapomnij go regularnie sprawdzać!
+  </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close cdkFocusInitial>Zamknij</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Zamknij</button>
 </mat-dialog-actions>

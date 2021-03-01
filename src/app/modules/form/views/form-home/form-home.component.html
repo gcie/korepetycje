@@ -1,54 +1,40 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="fullscreen fullscreen-bg">
-    <div fxFlex></div>
-    <div class="mat-display-2 header">Korepetycje MOSTowe</div>
-    <div class="mat-h1 subheader">formularz zapisowy</div>
-    <div fxLayout="row" fxLayoutAlign="center stretch" class="sm-col">
-        <button mat-raised-button class="btn" (click)="select('pupil')">
-            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="sm-row">
-                <img src="assets/img/icons/student.svg" class="btn-icon">
+  <div fxFlex></div>
+  <span class="mat-display-2 header">Korepetycje MOSTowe</span>
+  <div class="mat-display-1 subheader">formularz zapisowy</div>
+  <div fxLayout="row" fxLayoutAlign="center stretch" class="sm-col">
+    <button mat-raised-button class="btn" (click)="select('pupil')">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="sm-row">
+        <img src="assets/img/icons/student.svg" class="btn-icon" />
 
-                <div fxLayout="column">
-                    <div class="mat-h1">
-                        Dla ucznia
-                    </div>
-                    <span class="mat-body-1 btn-desc">
-                        Jesteś uczniem podstawówki lub szkoły średniej? Zapraszamy!
-                    </span>
-                </div>
-            </div>
-        </button>
-        <button mat-raised-button class="btn" (click)="select('parent')">
-            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="sm-row">
-                <img src="assets/img/icons/couple.svg" class="btn-icon">
-
-                <div fxLayout="column">
-                    <div class="mat-h1">
-                        Dla rodzica
-                    </div>
-                    <span class="mat-body-1 btn-desc">
-                        Szukasz korepetycji dla swojego podopiecznego? To tutaj!
-                    </span>
-                </div>
-            </div>
-        </button>
-        <button mat-raised-button class="btn" (click)="select('tutor')">
-            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="sm-row">
-                <img src="assets/img/icons/teacher.svg" class="btn-icon">
-                <div fxLayout="column">
-                    <div class="mat-h1">
-                        Dla studenta
-                    </div>
-                    <span class="mat-body-1 btn-desc">
-                        Chciałbyś dzielić się swoją wiedzą z innymi? Najlepiej w Moście!
-                    </span>
-                </div>
-            </div>
-        </button>
-
-    </div>
-    <div fxFlex></div>
-    <div class="mat-small" style="height: 24px">
-        Icons made by <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a> from <a
-            href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-    </div>
+        <div fxLayout="column">
+          <div class="mat-h1">Dla ucznia</div>
+          <span class="mat-body-1 btn-desc">Jesteś uczniem podstawówki lub szkoły średniej? Zapraszamy!</span>
+        </div>
+      </div>
+    </button>
+    <button mat-raised-button class="btn" (click)="select('parent')">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="sm-row">
+        <img src="assets/img/icons/couple.svg" class="btn-icon" />
+        <div fxLayout="column">
+          <div class="mat-h1">Dla rodzica</div>
+          <span class="mat-body-1 btn-desc">Szukasz korepetycji dla swojego podopiecznego? To tutaj!</span>
+        </div>
+      </div>
+    </button>
+    <button mat-raised-button class="btn" (click)="select('tutor')">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="sm-row">
+        <img src="assets/img/icons/teacher.svg" class="btn-icon" />
+        <div fxLayout="column">
+          <div class="mat-h1">Dla studenta</div>
+          <span class="mat-body-1 btn-desc">Chciałbyś dzielić się swoją wiedzą z innymi? Nalepiej w Moście!</span>
+        </div>
+      </div>
+    </button>
+  </div>
+  <div fxFlex></div>
+  <div class="mat-small" style="height: 24px">
+    Icons made by <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a> from
+    <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+  </div>
 </div>

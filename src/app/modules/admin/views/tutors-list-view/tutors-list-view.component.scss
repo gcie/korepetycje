@@ -1,0 +1,22 @@
+.table {
+  width: 100%;
+}
+
+.wrapper {
+  padding: 12px;
+  > * {
+    max-width: 1600px;
+    width: 100%;
+    min-width: 800px;
+  }
+}
+
+.no-tutors-row {
+  color: #b8b8b8;
+  margin: 16px;
+  > mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+  }
+}

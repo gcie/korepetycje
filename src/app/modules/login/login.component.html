@@ -1,2 +1,9 @@
-<firebase-ui (signInSuccessWithAuthResult)="successCallback($event)" (signInFailure)="errorCallback($event)"
-    (uiShown)="uiShownCallback()"></firebase-ui>
+<div fxLayout="column" fxLayoutAlign="center center" class="bg">
+  <firebase-ui
+    *ngIf="userResolved"
+    (signInSuccessWithAuthResult)="successCallback($event)"
+    (signInFailure)="errorCallback($event)"
+    (uiShown)="uiShownCallback($event)"
+  ></firebase-ui>
+  <mat-spinner *ngIf="!uiShown || !userResolved"></mat-spinner>
+</div>

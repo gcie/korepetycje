@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { Environment } from 'src/app/models/environment';
+import { Environment } from 'src/app/core/models/environment';
 
 export const environment: Environment = {
   production: false,
@@ -15,6 +15,7 @@ export const environment: Environment = {
     messagingSenderId: '659482562541',
     appId: '1:659482562541:web:00328396096bd574fe61e4',
   },
+  googleClientId: '659482562541-offsb186msm6bjdg7glft4k3rf78frqb.apps.googleusercontent.com',
   firestoreSettings: {
     host: 'localhost:8002',
     ssl: false,

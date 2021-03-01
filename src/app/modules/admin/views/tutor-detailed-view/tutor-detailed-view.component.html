@@ -1,0 +1,21 @@
+<div fxLayout="column" class="wrapper" fxLayoutAlign="start center">
+  <div class="mat-display-3 header" fxLayout="row" fxLayoutGap="16px">
+    <span class="mdi mdi-card-account-details-outline"></span>
+    <span>{{ (tutor | async)?.name }}</span>
+  </div>
+  <mat-divider style="width: 100%"></mat-divider>
+  <form *ngIf="initializedForm" [formGroup]="tutorForm">
+    <mat-list style="width: 100%" role="list">
+      <h2 matSubheader>Informacje kontaktowe</h2>
+      <app-editable-list-item formControlName="name">Imię i nazwisko</app-editable-list-item>
+      <app-editable-list-item formControlName="email">Adres email</app-editable-list-item>
+      <app-editable-list-item formControlName="phone">Nr telefonu</app-editable-list-item>
+      <app-selectable-list-item formControlName="remoteOrStationary" [data]="lessonsModeData">
+        Preferowana forma korepetycji
+      </app-selectable-list-item>
+      <mat-divider></mat-divider>
+      <h2 matSubheader>Przedmioty</h2>
+    </mat-list>
+    <app-teaches-list-item formControlName="teaches"></app-teaches-list-item>
+  </form>
+</div>

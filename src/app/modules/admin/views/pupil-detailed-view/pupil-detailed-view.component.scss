@@ -1,0 +1,29 @@
+.wrapper {
+  padding: 12px;
+  > * {
+    max-width: 1200px;
+    width: 100%;
+    min-width: 800px;
+  }
+}
+
+.header {
+  padding: 0 24px;
+  margin: 24px 0 12px;
+  width: 1200px;
+}
+
+td {
+  text-align: center;
+}
+
+.list-item-wrapper {
+  width: 100%;
+  .content {
+    padding-bottom: 7px;
+    margin: 0;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 1.125;
+  }
+}
