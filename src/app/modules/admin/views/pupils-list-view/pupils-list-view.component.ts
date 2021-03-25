@@ -3,10 +3,10 @@ import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { Pupil } from 'src/app/core/models/pupil';
 import { UserConfig } from 'src/app/core/models/user';
-import { PupilsService } from 'src/app/core/services/pupils.service';
+import { DialogService } from 'src/app/core/services/dialog.service';
+import { KorepetycjeService } from 'src/app/core/services/korepetycje.service';
 import { UserConfigService } from 'src/app/core/services/user-config.service';
 
 @Component({
@@ -19,11 +19,17 @@ export class PupilsListViewComponent implements OnInit {
   name = 'pupilsList';
 
   pupilsData = new MatTableDataSource<Pupil>();
-  pupilsDisplayedColumns = new FormControl(['submittedDate', 'name', 'email', 'phone', 'needs', 'lessonsMode']);
-  pupilsDisplayedColumnsList = ['submittedDate', 'name', 'email', 'phone', 'needs', 'lessonsMode'];
+  pupilsDisplayedColumns = new FormControl(['submittedDate', 'name', 'email', 'phone', 'needs', 'lessonsMode', 'tutors']);
+  pupilsDisplayedColumnsList = ['submittedDate', 'name', 'email', 'phone', 'needs', 'lessonsMode', 'tutors'];
   pupils: Pupil[];
 
-  constructor(public pupilsService: PupilsService, private router: Router, public user: UserConfigService, public route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private korepetycje: KorepetycjeService,
+    private dialogService: DialogService,
+    private user: UserConfigService
+  ) {
     this.route.data.subscribe((data) => this.init(data.config));
     // this.pupilsData.filterPredicate = (pupil: Pupil, filter: string) => {
     //   const results = filter.split(';').map((fstr) => {
@@ -57,12 +63,20 @@ export class PupilsListViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pupilsService.pupilsList$.pipe(tap(console.log)).subscribe((pupils) => (this.pupilsData.data = this.pupils = pupils));
+    this.korepetycje.pupilsListExtended.subscribe((pupils) => (this.pupilsData.data = this.pupils = pupils));
     this.pupilsDisplayedColumns.valueChanges.subscribe((value) => (this.user.pupilsListDisplayedColumns = value));
   }
 
   edit(pupil: Pupil) {
     this.router.navigateByUrl(`/admin/pupil/${pupil._id}`);
+  }
+
+  delete(pupil: Pupil) {
+    this.dialogService.confirm(`Czy na pewno chcesz usunąć ucznia "${pupil.name}"?`).subscribe((result) => {
+      if (result) {
+        this.korepetycje.pupils.deletePupil(pupil._id);
+      }
+    });
   }
 
   columnName(desc: string) {
@@ -79,8 +93,8 @@ export class PupilsListViewComponent implements OnInit {
         return 'Przedmioty';
       case 'lessonsMode':
         return 'Preferowany tryb';
-      case 'pupil':
-        return 'Uczeń?';
+      case 'tutors':
+        return 'Korepetytorzy';
     }
   }
 

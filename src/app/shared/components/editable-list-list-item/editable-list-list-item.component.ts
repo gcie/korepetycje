@@ -18,17 +18,16 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 export class EditableListListItemComponent implements ControlValueAccessor {
   @Input() type: string;
   @Input() labelWidth = 30;
+  @Input() options: string[] = [];
 
-  set value(value: { [name: string]: boolean }) {
+  set value(value: string[]) {
     this._value = value;
-    this.formattedValue = Object.keys(this.value)
-      .filter((k) => this.value[k])
-      .join(', ');
+    this.formattedValue = this.value.join(', ');
   }
   get value() {
     return this._value;
   }
-  private _value: { [name: string]: boolean };
+  private _value: string[];
 
   formattedValue: string;
   onChange = (_: any) => {};
@@ -48,7 +47,10 @@ export class EditableListListItemComponent implements ControlValueAccessor {
   }
 
   edit() {
-    const dialogRef = this.dialog.open(EditDialogComponent, { data: this.value });
+    const data = {};
+    this.options.forEach((o) => (data[o] = false));
+    this.value.forEach((v) => (data[v] = true));
+    const dialogRef = this.dialog.open(EditDialogComponent, { data });
     dialogRef.afterClosed().subscribe((value) => {
       if (value) {
         this.value = value;

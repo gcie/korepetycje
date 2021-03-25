@@ -20,12 +20,16 @@ service cloud.firestore {
       allow create: if true
       allow read, write: if isManager()
     }
+    match /lessons/{lesson} {
+      allow create: if true
+      allow read, write: if isManager()
+    }
     match /users/{uid} {
       allow create: if request.auth.uid == uid && validateNewUser()
       allow read: if request.auth.uid == uid
 
       match /data/{property} {
-        allow read, write: if true
+        allow read, write: if request.auth != null
       }
     }
   }

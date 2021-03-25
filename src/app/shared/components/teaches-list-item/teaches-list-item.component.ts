@@ -37,7 +37,6 @@ export class TeachesListItemComponent implements ControlValueAccessor {
   writeValue(value: any): void {
     this.value = value;
     this.subjects = Object.keys(value);
-    console.log('[TeachesListItemComponent] value:', value);
   }
 
   registerOnTouched(fn: any): void {}
@@ -61,7 +60,6 @@ export class TeachesListItemComponent implements ControlValueAccessor {
     });
 
     subjectPromptDialogRef.afterClosed().subscribe((subject) => {
-      console.log(subject);
       if (subject && !Object.keys(this.value).includes(subject)) {
         this.value[subject] = { sp: false, lo: false, matura: false };
         this.subjects.push(subject);

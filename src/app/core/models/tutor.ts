@@ -12,16 +12,19 @@ export interface Tutor {
       matura: boolean;
     };
   };
-  activeLessons: {
-    pupilId?: string;
-    pupilName?: string;
-    subject: string;
-    date: Date;
-    since: Date;
-    form: string;
-    notes: string;
-  };
   remoteOrStationary: LessonsMode;
   notes: string;
+  students?: string[];
   submittedDate: Date;
 }
+
+export const defaultTutor = {
+  _id: null,
+  name: null,
+  email: null,
+  phone: null,
+  teaches: null,
+  remoteOrStationary: null,
+  notes: null,
+  submittedDate: null,
+};

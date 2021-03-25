@@ -3,10 +3,11 @@ import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { lessonsModeData } from 'src/app/core/enum/lessons-mode.enum';
 import { Tutor } from 'src/app/core/models/tutor';
 import { UserConfig } from 'src/app/core/models/user';
+import { DialogService } from 'src/app/core/services/dialog.service';
+import { KorepetycjeService } from 'src/app/core/services/korepetycje.service';
 import { TutorsService } from 'src/app/core/services/tutors.service';
 import { UserConfigService } from 'src/app/core/services/user-config.service';
 import { AdminChild } from '../../admin.component';
@@ -25,7 +26,14 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
   tutorsDisplayedColumnsList = ['submittedDate', 'name', 'email', 'phone', 'teaches', 'lessonsMode', 'pupil'];
   tutors: Tutor[];
 
-  constructor(public tutorsService: TutorsService, private router: Router, public user: UserConfigService, public route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private tutorsService: TutorsService,
+    private korepetycjeService: KorepetycjeService,
+    private dialogService: DialogService,
+    private user: UserConfigService
+  ) {
     this.route.data.subscribe((data) => this.init(data.config));
     this.tutorsData.filterPredicate = (tutor: Tutor, filter: string) => {
       const results = filter.split(';').map((fstr) => {
@@ -59,12 +67,20 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
   }
 
   ngOnInit() {
-    this.tutorsService.tutorsList$.pipe(tap(console.log)).subscribe((tutors) => (this.tutorsData.data = this.tutors = tutors));
+    this.korepetycjeService.tutorsListExtended.subscribe((tutors) => (this.tutorsData.data = this.tutors = tutors));
     this.tutorsDisplayedColumns.valueChanges.subscribe((value) => (this.user.tutorsListDisplayedColumns = value));
   }
 
   edit(tutor: Tutor) {
     this.router.navigateByUrl(`/admin/tutor/${tutor._id}`);
+  }
+
+  delete(tutor: Tutor) {
+    this.dialogService.confirm(`Czy na pewno chcesz usunąć korepetytora "${tutor.name}"?`).subscribe((result) => {
+      if (result) {
+        this.tutorsService.deleteTutor(tutor._id);
+      }
+    });
   }
 
   columnName(desc: string) {
@@ -82,7 +98,7 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
       case 'lessonsMode':
         return 'Preferowany tryb';
       case 'pupil':
-        return 'Uczeń?';
+        return 'Uczniowie';
     }
   }
 

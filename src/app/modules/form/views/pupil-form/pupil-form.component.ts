@@ -30,7 +30,6 @@ export class PupilFormComponent implements AfterViewInit {
       .get('needs')!
       .valueChanges.pipe(
         map((o: { [name: string]: boolean }) => {
-          console.log('[valueChanges]', o);
           let a: string[] = [];
           for (let x in o) {
             if (o[x]) a.push(x);

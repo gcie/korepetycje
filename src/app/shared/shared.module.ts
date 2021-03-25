@@ -13,6 +13,7 @@ import { SelectableListItemComponent } from './components/selectable-list-item/s
 import { TeachesListItemComponent } from './components/teaches-list-item/teaches-list-item.component';
 import { LessonsModePipe } from './pipes/lessons-mode.pipe';
 import { TeachesPipe } from './pipes/teaches.pipe';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TeachesPipe } from './pipes/teaches.pipe';
     TeachesListItemComponent,
     PromptStringValueDialogComponent,
     EditDialogComponent,
+    ConfirmDialogComponent,
   ],
   imports: [CommonModule, FlexLayoutModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [

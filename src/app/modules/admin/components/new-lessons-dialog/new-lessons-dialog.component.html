@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Nowe korepetycje</h2>
+<mat-dialog-content class="mat-typography" style="min-width: 30vw">
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
+
+        <mat-form-field>
+            <mat-label>Korepetytor</mat-label>
+            <mat-select formControlName="tutorId" required>
+                <mat-option *ngFor="let tutor of korepetycje.tutors.data | async" [value]="tutor._id">{{ tutor.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Uczeń</mat-label>
+            <mat-select formControlName="pupilId" required>
+                <mat-option *ngFor="let pupil of korepetycje.pupils.data | async" [value]="pupil._id">{{ pupil.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Stan korepetycji</mat-label>
+            <mat-select formControlName="state">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let state of lessonsStateData | keyvalue" [value]="state.value">{{ state.key }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Forma korepetycji</mat-label>
+            <mat-select formControlName="remoteOrStationary">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let mode of lessonsModeData | keyvalue" [value]="mode.value">{{ mode.key }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Temat</mat-label>
+            <input matInput formControlName="subject" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Notatki</mat-label>
+            <textarea matInput formControlName="notes"></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Anuluj</button>
+    <button mat-button (click)="submit()" [disabled]="!form.valid">Utwórz</button>
+</mat-dialog-actions>

@@ -5,11 +5,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouteReuseStrategy } from '@angular/router';
 import firebase from 'firebase/app';
 import { auth as authui } from 'firebaseui';
 import { FirebaseUIModule } from 'firebaseui-angular';
 import { environment } from 'src/environments/environment';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRouteReuseStrategy, AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormModule } from './modules/form/form.module';
 import { HomeModule } from './modules/home/home.module';
@@ -52,7 +53,10 @@ const firebaseUiAuthConfig: authui.Config = {
     LoginModule,
     HomeModule,
   ],
-  providers: [{ provide: SETTINGS, useValue: environment.firestoreSettings }],
+  providers: [
+    { provide: SETTINGS, useValue: environment.firestoreSettings },
+    { provide: RouteReuseStrategy, useClass: AppRouteReuseStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
