@@ -10,6 +10,13 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 # Lista zmian
 
+## Wersja 1.3.0
+
+- **feature: wiązanie uczniów z korepetytorami**
+- feature: dodana możliwość usuwania uczniów i korepetytorów
+- perf: zwiększenie wydajności konsoli administracyjnej przy nawigowaniu między listą uczniów/korpetytorów a widokami szczegółowymi
+- improvement: dodanie przycisków "zapisz zmiany" na stronach edycji korepetytorów i uczniów
+
 ## Wersja 1.2.0
 
 - **feature: konsola administratora** z możliwością przeglądania aktualnie zgłoszonych uczniów i korepetytorów oraz modyfikowania ustawień powiadomień email o nowym uczniu/korepetytorze. Zabezpieczona mechanizmem logowania.
