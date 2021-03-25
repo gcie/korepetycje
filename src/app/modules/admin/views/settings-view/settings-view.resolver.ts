@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
+import { NewPupilNotifications } from 'src/app/core/models/new-pupil-notifications';
+import { NewTutorNotifications } from 'src/app/core/models/new-tutor-notifications';
 import { AdminService } from 'src/app/core/services/admin.service';
-import { SettingsViewData } from './settings-view.data';
+
+export interface SettingsViewData {
+  newPupilNotifications: NewPupilNotifications;
+  newTutorNotifications: NewTutorNotifications;
+}
 
 @Injectable({
   providedIn: 'root',

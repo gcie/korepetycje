@@ -34,7 +34,6 @@ export class AdminComponent {
 
   async getUser() {
     this.user = await this.angularFireAuth.currentUser;
-    console.log(this.user);
   }
 
   onActivate(componentReference: AdminChild) {

@@ -13,7 +13,11 @@ export class EditDialogComponent {
     this.value = data;
   }
 
-  onNoClick() {
+  cancel() {
     this.dialogRef.close();
+  }
+
+  submit() {
+    this.dialogRef.close(Object.keys(this.value).filter((k) => this.value[k]));
   }
 }

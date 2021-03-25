@@ -7,9 +7,9 @@ export enum LessonsMode {
 }
 
 export const lessonsModeData = {
-  [LessonsMode.OnlyStationary]: 'Tylko stacjonarnie',
-  [LessonsMode.PreferStationary]: 'Lepiej stacjonarnie',
-  [LessonsMode.Indifferent]: 'Bez różnicy',
-  [LessonsMode.PreferRemote]: 'Lepiej zdalnie',
-  [LessonsMode.OnlyRemote]: 'Tylko zdalnie',
+  'Tylko stacjonarnie': LessonsMode.OnlyStationary,
+  'Lepiej stacjonarnie': LessonsMode.PreferStationary,
+  'Bez różnicy': LessonsMode.Indifferent,
+  'Lepiej zdalnie': LessonsMode.PreferRemote,
+  'Tylko zdalnie': LessonsMode.OnlyRemote,
 };

@@ -17,15 +17,20 @@ import { MatSelect } from '@angular/material/select';
 export class SelectableListItemComponent implements ControlValueAccessor {
   @Input() title: string;
   @Input() labelWidth = 30;
-  @Input() data: { [value: number]: string };
+  @Input() data: { [key: string]: any };
+  @Input() equal = (o1, o2) => (o1 instanceof Object && o2 instanceof Object ? o1._id == o2._id : o1 == o2);
 
   @ViewChild('select') select: MatSelect;
 
-  value: string;
+  value: any;
   onChange = (_: any) => {};
 
   editMode = false;
   wasInsideClick = false;
+
+  getDisplayValue() {
+    return Object.keys(this.data).find((key) => this.equal(this.value, this.data[key]));
+  }
 
   writeValue(value: any): void {
     this.value = value;
@@ -42,7 +47,6 @@ export class SelectableListItemComponent implements ControlValueAccessor {
   triggerEdit() {
     this.editMode = true;
     setTimeout(() => {
-      console.log(this.select);
       this.select.open();
     });
   }

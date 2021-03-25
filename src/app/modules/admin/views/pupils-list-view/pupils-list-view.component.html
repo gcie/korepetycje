@@ -67,18 +67,24 @@
             <th mat-header-cell *matHeaderCellDef>Preferowany tryb</th>
             <td mat-cell *matCellDef="let pupil">{{ pupil.remoteOrStationary | lessonsMode }}</td>
         </ng-container>
+        <ng-container matColumnDef="tutors">
+            <th mat-header-cell *matHeaderCellDef>Korepetytorzy</th>
+            <td mat-cell *matCellDef="let pupil">{{ pupil.tutors?.length > 0 ? pupil.tutors.join(', ') : '' }}</td>
+        </ng-container>
         <ng-container matColumnDef="settings">
-            <th mat-header-cell *matHeaderCellDef style="width: 40px"></th>
-            <td mat-cell *matCellDef="let pupil" style="width: 40px">
+            <th mat-header-cell *matHeaderCellDef style="width: 80px"></th>
+            <td mat-cell *matCellDef="let pupil" style="width: 80px">
                 <button mat-icon-button (click)="edit(pupil)">
                     <mat-icon class="mat-18">edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="delete(pupil)">
+                    <mat-icon class="mat-18">delete</mat-icon>
                 </button>
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="pupilsDisplayedColumns.value.concat(['settings'])"></tr>
-        <tr mat-row *matRowDef="let pupil; columns: pupilsDisplayedColumns.value.concat(['settings'])"
-            (click)="edit(pupil)"></tr>
+        <tr mat-row *matRowDef="let pupil; columns: pupilsDisplayedColumns.value.concat(['settings'])"></tr>
 
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="8">

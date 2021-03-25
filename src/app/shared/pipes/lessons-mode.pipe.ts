@@ -5,7 +5,12 @@ import { LessonsMode, lessonsModeData } from 'src/app/core/enum/lessons-mode.enu
   name: 'lessonsMode',
 })
 export class LessonsModePipe implements PipeTransform {
-  transform(value: LessonsMode, ...args: unknown[]): unknown {
-    return lessonsModeData[value];
+  lessonsModeReverseData = Object.entries(lessonsModeData).reduce((o, [k, v]) => {
+    o[v] = k;
+    return o;
+  }, {});
+
+  transform(value: LessonsMode): string {
+    return this.lessonsModeReverseData[value];
   }
 }

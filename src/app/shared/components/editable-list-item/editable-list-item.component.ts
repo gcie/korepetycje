@@ -18,6 +18,7 @@ export class EditableListItemComponent implements ControlValueAccessor {
   @Input() labelWidth = 30;
 
   value: string;
+  oldvalue: string;
   onChange = (_: any) => {};
 
   editMode = false;
@@ -25,6 +26,7 @@ export class EditableListItemComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.value = value;
+    this.oldvalue = value;
   }
 
   registerOnTouched(fn: any): void {}
@@ -36,10 +38,12 @@ export class EditableListItemComponent implements ControlValueAccessor {
   submit() {
     this.editMode = false;
     this.onChange(this.value);
+    this.oldvalue = this.value;
   }
 
   cancel() {
     this.editMode = false;
+    this.value = this.oldvalue;
   }
 
   @HostListener('click')
@@ -49,7 +53,7 @@ export class EditableListItemComponent implements ControlValueAccessor {
 
   @HostListener('document:click')
   clickout() {
-    if (!this.wasInsideClick) {
+    if (!this.wasInsideClick && this.editMode) {
       this.cancel();
     }
     this.wasInsideClick = false;

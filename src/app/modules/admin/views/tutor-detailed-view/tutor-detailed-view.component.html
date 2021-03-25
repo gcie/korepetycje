@@ -1,10 +1,10 @@
 <div fxLayout="column" class="wrapper" fxLayoutAlign="start center">
   <div class="mat-display-3 header" fxLayout="row" fxLayoutGap="16px">
     <span class="mdi mdi-card-account-details-outline"></span>
-    <span>{{ (tutor | async)?.name }}</span>
+    <span>{{ tutor?.name }}</span>
   </div>
   <mat-divider style="width: 100%"></mat-divider>
-  <form *ngIf="initializedForm" [formGroup]="tutorForm">
+  <form [formGroup]="tutorForm">
     <mat-list style="width: 100%" role="list">
       <h2 matSubheader>Informacje kontaktowe</h2>
       <app-editable-list-item formControlName="name">Imię i nazwisko</app-editable-list-item>
@@ -13,9 +13,45 @@
       <app-selectable-list-item formControlName="remoteOrStationary" [data]="lessonsModeData">
         Preferowana forma korepetycji
       </app-selectable-list-item>
-      <mat-divider></mat-divider>
+      <mat-divider style="margin-top: 16px;"></mat-divider>
       <h2 matSubheader>Przedmioty</h2>
     </mat-list>
     <app-teaches-list-item formControlName="teaches"></app-teaches-list-item>
   </form>
+
+  <ng-container *ngFor="let lessonsForm of lessonsForms; index as i">
+    <mat-divider style="margin-top: 16px;"></mat-divider>
+
+    <form [formGroup]="lessonsForm">
+      <mat-list style="width: 100%" role="list">
+        <h2 matSubheader style="white-space: nowrap">Korepetycje {{lessonsForms.length > 1 ? 'nr
+          ' + (i+1) : ''}}
+          <span style="width: 100%"></span>
+          <button mat-button (click)="deleteLessons(lessonsForm.value._id)">
+            <mat-icon>delete</mat-icon>
+            <span style="margin-right: 16px">Usuń</span>
+          </button>
+        </h2>
+
+        <app-selectable-list-item formControlName="pupilId" [data]="selectPupilData | async">Uczeń
+        </app-selectable-list-item>
+        <app-selectable-list-item formControlName="state" [data]="lessonsStateData">Stan korepetycji
+        </app-selectable-list-item>
+        <app-selectable-list-item formControlName="remoteOrStationary" [data]="lessonsModeData">
+          Forma korepetycji
+        </app-selectable-list-item>
+        <app-editable-list-item formControlName="subject">Temat</app-editable-list-item>
+        <app-editable-list-item formControlName="notes" type="textarea">Notatki</app-editable-list-item>
+      </mat-list>
+    </form>
+  </ng-container>
+
+  <mat-divider style="margin: 16px 0"></mat-divider>
+
+  <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="8px">
+    <button mat-raised-button color="accent" (click)="newLessons()">
+      <mat-icon>add</mat-icon> korepetycje
+    </button>
+    <button mat-raised-button [disabled]="!dirty" color="primary" (click)="save()">Zapisz zmiany</button>
+  </div>
 </div>

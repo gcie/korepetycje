@@ -5,7 +5,7 @@
     </p>
 
     <p *ngIf="!editMode" fxFlex="fill" class="mat-body-2 content">
-      {{ data[value] }}
+      {{ getDisplayValue() }}
     </p>
 
     <button *ngIf="!editMode" fxFlex="none" mat-icon-button (click)="triggerEdit()">
@@ -14,7 +14,7 @@
 
     <mat-form-field *ngIf="editMode" fxFlex="fill">
       <mat-select [(ngModel)]="value" (ngModelChange)="submit()" #select>
-        <mat-option *ngFor="let opt of data | keyvalue" [value]="opt.key">{{ opt.value }}</mat-option>
+        <mat-option *ngFor="let opt of data | keyvalue" [value]="opt.value">{{ opt.key }}</mat-option>
       </mat-select>
     </mat-form-field>
 

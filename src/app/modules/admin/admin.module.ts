@@ -8,12 +8,15 @@ import { UserConfigResolver } from 'src/app/core/resolvers/user-config.resolver'
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { AdminComponent } from './admin.component';
+import { NewLessonsDialogComponent } from './components/new-lessons-dialog/new-lessons-dialog.component';
 import { SettingsItemComponent } from './components/settings-item/settings-item.component';
 import { PupilDetailedViewComponent } from './views/pupil-detailed-view/pupil-detailed-view.component';
+import { PupilDetailedViewResolver } from './views/pupil-detailed-view/pupil-detailed-view.resolver';
 import { PupilsListViewComponent } from './views/pupils-list-view/pupils-list-view.component';
 import { SettingsViewComponent } from './views/settings-view/settings-view.component';
 import { SettingsViewResolver } from './views/settings-view/settings-view.resolver';
 import { TutorDetailedViewComponent } from './views/tutor-detailed-view/tutor-detailed-view.component';
+import { TutorDetailedViewResolver } from './views/tutor-detailed-view/tutor-detailed-view.resolver';
 import { TutorsListViewComponent } from './views/tutors-list-view/tutors-list-view.component';
 
 const routes: Routes = [
@@ -30,8 +33,18 @@ const routes: Routes = [
       },
       { path: 'tutors', component: TutorsListViewComponent, resolve: { config: UserConfigResolver } },
       { path: 'pupils', component: PupilsListViewComponent, resolve: { config: UserConfigResolver } },
-      { path: 'tutor/:id', component: TutorDetailedViewComponent },
-      { path: 'pupil/:id', component: PupilDetailedViewComponent },
+      {
+        path: 'tutor/:id',
+        component: TutorDetailedViewComponent,
+        resolve: { data: TutorDetailedViewResolver },
+        canDeactivate: [CanDeactivateGuard],
+      },
+      {
+        path: 'pupil/:id',
+        component: PupilDetailedViewComponent,
+        resolve: { data: PupilDetailedViewResolver },
+        canDeactivate: [CanDeactivateGuard],
+      },
     ],
   },
 ];
@@ -45,6 +58,7 @@ const routes: Routes = [
     SettingsItemComponent,
     PupilsListViewComponent,
     PupilDetailedViewComponent,
+    NewLessonsDialogComponent,
   ],
   imports: [CommonModule, MaterialModule, SharedModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)],
 })
