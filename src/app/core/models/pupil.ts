@@ -14,9 +14,6 @@ export interface Pupil {
   parentName?: string;
   parentEmail?: string;
   parentPhone?: string;
-  lessonsStatus: string;
-  assignedTutorId?: string;
-  assignedTutorName?: string;
   submittedBy: 'himself' | 'parent';
   alreadyAttended: boolean;
   previousTutor: string;
@@ -40,9 +37,6 @@ export const defaultPupil = {
   parentName: null,
   parentEmail: null,
   parentPhone: null,
-  lessonsStatus: null,
-  assignedTutorId: null,
-  assignedTutorName: null,
   submittedBy: null,
   alreadyAttended: null,
   previousTutor: null,

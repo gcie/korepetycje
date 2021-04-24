@@ -12,4 +12,5 @@ export const environment: Environment = {
     appId: '1:659482562541:web:00328396096bd574fe61e4',
   },
   googleClientId: '659482562541-offsb186msm6bjdg7glft4k3rf78frqb.apps.googleusercontent.com',
+  log: 'warn',
 };

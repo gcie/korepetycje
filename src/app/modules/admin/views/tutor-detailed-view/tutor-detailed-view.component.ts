@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { cloneDeep, isEqual } from 'lodash-es';
+import { isEqual } from 'lodash-es';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { lessonsModeData } from 'src/app/core/enum/lessons-mode.enum';
@@ -16,7 +16,6 @@ import { PupilsService } from 'src/app/core/services/pupils.service';
 import { TutorsService } from 'src/app/core/services/tutors.service';
 import { AdminChild } from '../../admin.component';
 import { NewLessonsDialogComponent } from '../../components/new-lessons-dialog/new-lessons-dialog.component';
-import { TutorDetailedViewData } from './tutor-detailed-view.resolver';
 
 @Component({
   selector: 'app-tutor-detailed-view',
@@ -32,9 +31,9 @@ export class TutorDetailedViewComponent implements AdminChild, CanComponentDeact
   tutorId: string;
   lessonsId: string;
   tutor: Tutor;
-  lessons: Lessons[];
+  lessons: Lessons[] = [];
   tutorForm: FormGroup;
-  lessonsForms: FormGroup[];
+  lessonsForms: FormGroup[] = [];
 
   lessonsModeData = lessonsModeData;
   lessonsStateData = lessonsStateData;
@@ -47,8 +46,6 @@ export class TutorDetailedViewComponent implements AdminChild, CanComponentDeact
     })
   );
 
-  initialData: TutorDetailedViewData;
-
   constructor(
     private route: ActivatedRoute,
     private tutorsService: TutorsService,
@@ -59,17 +56,23 @@ export class TutorDetailedViewComponent implements AdminChild, CanComponentDeact
     private dialog: MatDialog
   ) {
     this.tutorId = this.route.snapshot.params.id;
-    this.initialData = this.route.snapshot.data.data;
-    this.tutor = cloneDeep(this.initialData.tutor);
-    this.lessons = cloneDeep(this.initialData.lessons || []);
-
-    this.tutorForm = this.formBuilder.group(Object.assign({}, defaultTutor, this.tutor));
-    this.tutorForm.valueChanges.subscribe(this.updateDirtiness.bind(this));
-
-    this.lessonsForms = this.lessons.map((lessons) => this.formBuilder.group(Object.assign({}, defaultLessons, lessons)));
-    this.lessonsForms.forEach((form) => form.valueChanges.subscribe(this.updateDirtiness.bind(this)));
-
+    this.tutor = this.tutorsService.getTutor(this.tutorId);
+    this.lessons = this.lessonsService.getLessonsByTutorId(this.tutorId) || [];
     this.title = new BehaviorSubject<string>(`Korepetytorzy - ${this.tutor.name}`);
+
+    this.tutorsService.getTutor$(this.tutorId).subscribe((tutor) => {
+      this.tutor = tutor;
+      this.tutorForm = this.formBuilder.group(Object.assign({}, defaultTutor, this.tutor));
+      this.tutorForm.valueChanges.subscribe(this.updateDirtiness.bind(this));
+      this.updateDirtiness();
+    });
+
+    this.lessonsService.getLessonsByTutorId$(this.tutorId).subscribe((lessons) => {
+      this.lessons = lessons || [];
+      this.lessonsForms = this.lessons.map((lessons) => this.formBuilder.group(Object.assign({}, defaultLessons, lessons)));
+      this.lessonsForms.forEach((form) => form.valueChanges.subscribe(this.updateDirtiness.bind(this)));
+      this.updateDirtiness();
+    });
   }
 
   canDeactivate() {
@@ -79,20 +82,17 @@ export class TutorDetailedViewComponent implements AdminChild, CanComponentDeact
 
   updateDirtiness() {
     this.dirty =
-      !isEqual(this.tutorForm.value, this.initialData.tutor) ||
+      !isEqual(this.tutorForm.value, this.tutor) ||
       !isEqual(
         this.lessonsForms.map((form) => form.value),
-        this.initialData.lessons
+        this.lessons
       );
   }
 
   save() {
     if (this.dirty) {
       this.tutorsService.updateTutor(this.tutorId, this.tutorForm.value);
-      this.initialData.tutor = this.tutorForm.value;
       this.lessonsForms.forEach((form) => this.lessonsService.updateLessons(form.value._id, form.value));
-      this.initialData.lessons = this.lessonsForms.map((form) => form.value);
-      this.dirty = false;
     }
   }
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { cloneDeep, isEqual } from 'lodash-es';
+import { isEqual } from 'lodash-es';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { lessonsModeData } from 'src/app/core/enum/lessons-mode.enum';
@@ -15,7 +15,6 @@ import { PupilsService } from 'src/app/core/services/pupils.service';
 import { TutorsService } from 'src/app/core/services/tutors.service';
 import { AdminChild } from '../../admin.component';
 import { NewLessonsDialogComponent } from '../../components/new-lessons-dialog/new-lessons-dialog.component';
-import { PupilDetailedViewData } from './pupil-detailed-view.resolver';
 
 @Component({
   selector: 'app-pupil-detailed-view',
@@ -31,9 +30,9 @@ export class PupilDetailedViewComponent implements AdminChild {
   pupilId: string;
   lessonsId: string;
   pupil: Pupil;
-  lessons: Lessons[];
+  lessons: Lessons[] = [];
   pupilForm: FormGroup;
-  lessonsForms: FormGroup[];
+  lessonsForms: FormGroup[] = [];
 
   lessonsModeData = lessonsModeData;
   lessonsStateData = lessonsStateData;
@@ -45,8 +44,6 @@ export class PupilDetailedViewComponent implements AdminChild {
       return o;
     })
   );
-
-  initialData: PupilDetailedViewData;
 
   subjects = ['matematyka', 'fizyka', 'chemia', 'biologia', 'polski', 'historia', 'angielski', 'niemiecki'];
 
@@ -60,41 +57,43 @@ export class PupilDetailedViewComponent implements AdminChild {
     private dialog: MatDialog
   ) {
     this.pupilId = this.route.snapshot.params.id;
-    this.initialData = this.route.snapshot.data.data;
-
-    this.pupil = cloneDeep(this.initialData.pupil);
-    this.lessons = cloneDeep(this.initialData.lessons || []);
-
-    this.pupilForm = this.formBuilder.group(Object.assign({}, defaultPupil, this.pupil, { needs: [this.pupil.needs] }));
-    this.pupilForm.valueChanges.subscribe(this.updateDirtiness.bind(this));
-
-    this.lessonsForms = this.lessons.map((lessons) => this.formBuilder.group(Object.assign({}, defaultLessons, lessons)));
-    this.lessonsForms.forEach((form) => form.valueChanges.subscribe(this.updateDirtiness.bind(this)));
-
+    this.pupil = this.pupilsService.getPupil(this.pupilId);
+    this.lessons = this.lessonsService.getLessonsByPupilId(this.pupilId) || [];
     this.title = new BehaviorSubject<string>(`Uczniowie - ${this.pupil.name}`);
+
+    this.pupilsService.getPupil$(this.pupilId).subscribe((pupil) => {
+      this.pupil = pupil;
+      this.pupilForm = this.formBuilder.group(Object.assign({}, defaultPupil, this.pupil, { needs: [this.pupil.needs] }));
+      this.pupilForm.valueChanges.subscribe(this.updateDirtiness.bind(this));
+      this.updateDirtiness();
+    });
+
+    this.lessonsService.getLessonsByPupilId$(this.pupilId).subscribe((lessons) => {
+      this.lessons = lessons;
+      this.lessonsForms = this.lessons.map((lessons) => this.formBuilder.group(Object.assign({}, defaultLessons, lessons)));
+      this.lessonsForms.forEach((form) => form.valueChanges.subscribe(this.updateDirtiness.bind(this)));
+      this.updateDirtiness();
+    });
   }
 
   canDeactivate() {
     if (!this.dirty) return true;
-    return this.dialogService.windowConfirm('Odrzucić zmiany?');
+    return this.dialogService.confirm('Odrzucić zmiany?');
   }
 
   updateDirtiness() {
     this.dirty =
-      !isEqual(this.pupilForm.value, this.initialData.pupil) ||
+      !isEqual(this.pupilForm.value, this.pupil) ||
       !isEqual(
         this.lessonsForms.map((form) => form.value),
-        this.initialData.lessons
+        this.lessons
       );
   }
 
   save() {
     if (this.dirty) {
       this.pupilsService.updatePupil(this.pupilId, this.pupilForm.value);
-      this.initialData.pupil = this.pupilForm.value;
       this.lessonsForms.forEach((form) => this.lessonsService.updateLessons(form.value._id, form.value));
-      this.initialData.lessons = this.lessonsForms.map((form) => form.value);
-      this.dirty = false;
     }
   }
 

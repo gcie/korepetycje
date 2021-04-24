@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { all } from '../models/operators';
 import { Pupil } from '../models/pupil';
 import { Tutor } from '../models/tutor';
 import { LessonsService } from './lessons.service';
@@ -12,6 +13,10 @@ import { TutorsService } from './tutors.service';
   providedIn: 'root',
 })
 export class KorepetycjeService {
+  get ready() {
+    return all(this.lessons.ready, this.pupils.ready, this.tutors.ready);
+  }
+
   constructor(public lessons: LessonsService, public pupils: PupilsService, public tutors: TutorsService) {}
 
   public tutorsListExtended = combineLatest([this.tutors.data, this.lessons.data, this.pupils.data]).pipe(

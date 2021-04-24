@@ -14,4 +14,5 @@ export interface Environment {
     host: string;
     ssl: boolean;
   };
+  log: 'debug' | 'info' | 'warn' | 'error';
 }
