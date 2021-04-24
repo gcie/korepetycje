@@ -25,7 +25,14 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-exports.pupilOnCreate = functions.firestore.document('pupils/{pupil}').onCreate(async (snapshot, context) => {
+exports.pupilOnCreate = functions.firestore.document('pupils/{pupilId}').onCreate(async (snapshot, context) => {
+  console.log('[pupil onCreate]');
+  // FORMAT PUPIL
+  snapshot.ref.update({
+    _id: context.params.pupilId,
+    submittedDate: new Date(),
+  });
+
   // SEND EMAIL NOTIFICATION
   const config = (await db.doc('admin/newPupilNotifications').get()).data();
 
@@ -55,7 +62,14 @@ exports.pupilOnCreate = functions.firestore.document('pupils/{pupil}').onCreate(
   return await mailTransport.sendMail(mailOptions);
 });
 
-exports.tutorOnCreate = functions.firestore.document('tutors/{tutor}').onCreate(async (snapshot, context) => {
+exports.tutorOnCreate = functions.firestore.document('tutors/{tutorId}').onCreate(async (snapshot, context) => {
+  console.log('[tutor onCreate]');
+  // FORMAT TUTOR
+  snapshot.ref.update({
+    _id: context.params.tutorId,
+    submittedDate: new Date(),
+  });
+
   // SEND EMAIL NOTIFICATION
   const config = (await db.doc('admin/newTutorNotifications').get()).data();
 
@@ -93,18 +107,4 @@ exports.tutorOnCreate = functions.firestore.document('tutors/{tutor}').onCreate(
   };
 
   return await mailTransport.sendMail(mailOptions);
-});
-
-exports.formatTutorOnCreate = functions.firestore.document('tutors/{tutorId}').onCreate(async (snapshot, context) => {
-  snapshot.ref.update({
-    _id: context.params.tutorId,
-    submittedDate: new Date(),
-  });
-});
-
-exports.formatPupilOnCreate = functions.firestore.document('pupils/{pupilId}').onCreate(async (snapshot, context) => {
-  snapshot.ref.update({
-    _id: context.params.pupilId,
-    submittedDate: new Date(),
-  });
 });
