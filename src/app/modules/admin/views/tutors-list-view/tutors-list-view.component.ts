@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -20,6 +21,8 @@ import { AdminChild } from '../../admin.component';
 export class TutorsListViewComponent implements OnInit, AdminChild {
   title: Observable<string> = new BehaviorSubject<string>('Korepetytorzy');
   name = 'tutorsList';
+
+  @ViewChild(MatSort) sort: MatSort;
 
   tutorsData = new MatTableDataSource<Tutor>();
   tutorsDisplayedColumns = new FormControl(['submittedDate', 'name', 'email', 'phone', 'teaches', 'lessonsMode', 'pupil']);
@@ -69,6 +72,12 @@ export class TutorsListViewComponent implements OnInit, AdminChild {
   ngOnInit() {
     this.korepetycjeService.tutorsListExtended.subscribe((tutors) => (this.tutorsData.data = this.tutors = tutors));
     this.tutorsDisplayedColumns.valueChanges.subscribe((value) => (this.user.tutorsListDisplayedColumns = value));
+  }
+
+  ngAfterViewInit() {
+    this.tutorsData.sort = this.sort;
+    this.sort.active = 'submittedDate';
+    this.sort.direction = 'desc';
   }
 
   edit(tutor: Tutor) {

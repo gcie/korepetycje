@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -17,6 +18,8 @@ import { UserConfigService } from 'src/app/core/services/user-config.service';
 export class PupilsListViewComponent implements OnInit {
   title: Observable<string> = new BehaviorSubject<string>('Uczniowie');
   name = 'pupilsList';
+
+  @ViewChild(MatSort) sort: MatSort;
 
   pupilsData = new MatTableDataSource<Pupil>();
   pupilsDisplayedColumns = new FormControl(['submittedDate', 'name', 'email', 'phone', 'needs', 'lessonsMode', 'tutors']);
@@ -65,6 +68,12 @@ export class PupilsListViewComponent implements OnInit {
   ngOnInit() {
     this.korepetycje.pupilsListExtended.subscribe((pupils) => (this.pupilsData.data = this.pupils = pupils));
     this.pupilsDisplayedColumns.valueChanges.subscribe((value) => (this.user.pupilsListDisplayedColumns = value));
+  }
+
+  ngAfterViewInit() {
+    this.pupilsData.sort = this.sort;
+    this.sort.active = 'submittedDate';
+    this.sort.direction = 'desc';
   }
 
   edit(pupil: Pupil) {
