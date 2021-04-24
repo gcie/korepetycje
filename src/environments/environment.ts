@@ -20,6 +20,7 @@ export const environment: Environment = {
     host: 'localhost:8002',
     ssl: false,
   },
+  log: 'debug',
 };
 
 /*
