@@ -6,7 +6,7 @@
   <span>{{ title | async }}</span>
   <span fxFlex></span>
   <button mat-icon-button [matMenuTriggerFor]="usermenu">
-    <img [src]="user?.photoURL" class="account-icon" />
+    <img [src]="user?.photoURL" class="account-icon" alt="user_image" />
   </button>
   <mat-menu #usermenu>
     <button mat-menu-item (click)="auth.logout()">Wyloguj <mat-icon>exit_to_app</mat-icon></button>
