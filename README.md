@@ -10,6 +10,12 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 # Lista zmian
 
+## Wersja 1.3.1
+
+- feature: sortowanie uczniów i korepetytorów
+- improvement: poprawienie wydajności i responsywności aplikacji przez wydajniejsze zarządzanie pobieranymi danymi
+- improvement: zmniejszenie zasobów wykorzystywanych przez backend (firebase functions)
+
 ## Wersja 1.3.0
 
 - **feature: wiązanie uczniów z korepetytorami**
