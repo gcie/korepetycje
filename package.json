@@ -30,6 +30,7 @@
     "firebaseui": "^4.7.1",
     "firebaseui-angular": "^5.1.1",
     "lodash-es": "^4.17.21",
+    "ng-recaptcha": "^7.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

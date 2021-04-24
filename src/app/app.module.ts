@@ -9,6 +9,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import firebase from 'firebase/app';
 import { auth as authui } from 'firebaseui';
 import { FirebaseUIModule } from 'firebaseui-angular';
+import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { AppRouteReuseStrategy, AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +49,7 @@ const firebaseUiAuthConfig: authui.Config = {
     AngularFireAnalyticsModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFirestoreModule,
+    RecaptchaV3Module,
     BrowserAnimationsModule,
     FormModule,
     LoginModule,
@@ -56,6 +58,7 @@ const firebaseUiAuthConfig: authui.Config = {
   providers: [
     { provide: SETTINGS, useValue: environment.firestoreSettings },
     { provide: RouteReuseStrategy, useClass: AppRouteReuseStrategy },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LciU6gaAAAAAOvhRF1Uk8x_cPI59N2wQ2BykQtl' },
   ],
   bootstrap: [AppComponent],
 })
