@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { cloneDeep, isEqual } from 'lodash-es';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { lessonsModeData } from 'src/app/core/enum/lessons-mode.enum';
 import { lessonsStateData } from 'src/app/core/enum/lessons-state.enum';
 import { defaultLessons, Lessons } from 'src/app/core/models/lessons';
@@ -102,13 +102,24 @@ export class PupilDetailedViewComponent implements AdminChild {
     this.dialogService.confirm('Czy na pewno chcesz usunąć wybrane korepetycje?').subscribe(async (result) => {
       if (result) {
         await this.lessonsService.deleteLessons(id);
+        this.updateLessons();
       }
     });
   }
 
   newLessons() {
-    this.dialog.open(NewLessonsDialogComponent, {
-      data: { pupilId: this.pupilId },
-    });
+    this.dialog
+      .open(NewLessonsDialogComponent, {
+        data: { pupilId: this.pupilId },
+      })
+      .afterClosed()
+      .subscribe(this.updateLessons.bind(this));
+  }
+
+  private async updateLessons() {
+    const lessons = await this.lessonsService.getLessonsByPupilId(this.pupilId).pipe(take(1)).toPromise();
+    this.lessons = cloneDeep(lessons || []);
+    this.lessonsForms = this.lessons.map((lessons) => this.formBuilder.group(Object.assign({}, defaultLessons, lessons)));
+    this.lessonsForms.forEach((form) => form.valueChanges.subscribe(this.updateDirtiness.bind(this)));
   }
 }
