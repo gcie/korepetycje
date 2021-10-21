@@ -30,6 +30,7 @@ const routes: Routes = [
     ParentFormComponent,
     TutorFormComponent,
     FormFailureDialogComponent,
+    CovidAlertDialogComponent,
   ],
   imports: [CommonModule, SharedModule, FlexLayoutModule, FormsModule, ReactiveFormsModule, MaterialModule, RouterModule.forChild(routes)],
 })
