@@ -45,7 +45,7 @@ export class TutorFormComponent {
         },
         selectBetween(1, 20)
       ),
-      remoteOrStationary: new FormControl(null, Validators.required),
+      remoteOrStationary: new FormControl(null),
     });
 
     this.clausesForm = new FormGroup({

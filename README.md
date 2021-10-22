@@ -10,6 +10,12 @@ Aplikacja jast hostowana na firebase ([https://most-korepetycje.firebaseapp.com/
 
 # Lista zmian
 
+## Wersja 1.3.2
+
+- wyłączenie notyfikacji o pandemii
+- usunięcie możliwości wyboru korepetycji zdalnych
+- poprawiona wydajność konsoli administracyjnej
+
 ## Wersja 1.3.1
 
 - feature: sortowanie uczniów i korepetytorów

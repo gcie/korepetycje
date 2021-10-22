@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { firstNonNull } from '../models/operators';
 import { Tutor } from '../models/tutor';
 import { LoggerService } from './logger.service';
 
@@ -10,10 +11,7 @@ import { LoggerService } from './logger.service';
 })
 export class TutorsService {
   get ready() {
-    return this._ready.pipe(
-      filter((x) => x),
-      take(1)
-    );
+    return this._ready.pipe(firstNonNull());
   }
   private _ready = new BehaviorSubject(false);
 
@@ -25,10 +23,12 @@ export class TutorsService {
       .valueChanges({ idField: '_id' })
       .pipe(
         map((snapshot) => snapshot as Tutor[]),
-        tap(() => this._ready.next(true)),
-        tap((snapshot) => this.logger.info('[TutorsService] snapshot update:', snapshot))
+        tap((data) => {
+          this.logger.info('[TutorsService] snapshot update:', data);
+          this.data.next(data);
+        })
       )
-      .subscribe(this.data.next.bind(this.data));
+      .subscribe(() => this._ready.next(true));
   }
 
   createTutor(tutor: Tutor): Promise<DocumentReference> {

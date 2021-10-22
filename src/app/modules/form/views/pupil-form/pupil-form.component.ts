@@ -92,7 +92,7 @@ export class PupilFormComponent {
         selectBetween(1, 20)
       ),
       mainNeeds: new FormControl(),
-      remoteOrStationary: new FormControl(null, Validators.required),
+      remoteOrStationary: new FormControl(null),
       alreadyAttended: new FormControl(false),
       previousTutor: new FormControl(),
     });

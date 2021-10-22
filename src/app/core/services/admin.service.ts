@@ -1,44 +1,84 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { NewPupilNotifications } from '../models/new-pupil-notifications';
 import { NewTutorNotifications } from '../models/new-tutor-notifications';
+import { all, firstNonNull } from '../models/operators';
+import { LoggerService } from './logger.service';
+
+export class AdminData {
+  newPupilNotifications: NewPupilNotifications;
+  newTutorNotifications: NewTutorNotifications;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  ADMIN_COLLECTION_STR = 'admin';
+  get ready() {
+    return all(this._npnready, this._ntnready).pipe(firstNonNull());
+  }
+  private _npnready = new BehaviorSubject(false);
+  private _ntnready = new BehaviorSubject(false);
 
-  NEW_PUPIL_NOTIFICATIONS_DOC_STR = 'newPupilNotifications';
-  NEW_TUTOR_NOTIFICATIONS_DOC_STR = 'newTutorNotifications';
+  newPupilNotifications: BehaviorSubject<NewPupilNotifications> = new BehaviorSubject(null);
+  newTutorNotifications: BehaviorSubject<NewTutorNotifications> = new BehaviorSubject(null);
 
-  adminCollection: AngularFirestoreCollection;
+  private readonly ADMIN_COLLECTION_STR = 'admin';
 
-  newPupilNotificationsDoc: AngularFirestoreDocument;
-  newTutorNotificationsDoc: AngularFirestoreDocument;
+  private readonly NEW_PUPIL_NOTIFICATIONS_DOC_STR = 'newPupilNotifications';
+  private readonly NEW_TUTOR_NOTIFICATIONS_DOC_STR = 'newTutorNotifications';
 
-  newPupilNotifications$: Observable<NewPupilNotifications>;
-  newTutorNotifications$: Observable<NewTutorNotifications>;
+  private adminCollection: AngularFirestoreCollection;
 
-  constructor(private firestore: AngularFirestore) {
+  private newPupilNotificationsDoc: AngularFirestoreDocument;
+  private newTutorNotificationsDoc: AngularFirestoreDocument;
+
+  constructor(private firestore: AngularFirestore, private logger: LoggerService) {
     // initialize collection
     this.adminCollection = this.firestore.collection(this.ADMIN_COLLECTION_STR);
     // initialize documents
     this.newPupilNotificationsDoc = this.adminCollection.doc(this.NEW_PUPIL_NOTIFICATIONS_DOC_STR);
     this.newTutorNotificationsDoc = this.adminCollection.doc(this.NEW_TUTOR_NOTIFICATIONS_DOC_STR);
-    // initialize observables
-    this.newPupilNotifications$ = this.newPupilNotificationsDoc.valueChanges().pipe(map((snapshot) => snapshot as NewPupilNotifications));
-    this.newTutorNotifications$ = this.newTutorNotificationsDoc.valueChanges().pipe(map((snapshot) => snapshot as NewTutorNotifications));
+
+    this.newPupilNotificationsDoc
+      .valueChanges()
+      .pipe(
+        map((snapshot) => snapshot as NewPupilNotifications),
+        tap((data) => this.newPupilNotifications.next(data))
+      )
+      .subscribe(() => this._npnready.next(true));
+
+    this.newTutorNotificationsDoc
+      .valueChanges()
+      .pipe(
+        map((snapshot) => snapshot as NewTutorNotifications),
+        tap((data) => this.newTutorNotifications.next(data))
+      )
+      .subscribe(() => this._ntnready.next(true));
   }
 
   getNewPupilNotifications() {
-    return this.newPupilNotificationsDoc.get().pipe(map((doc) => doc.data() as NewPupilNotifications));
+    if (!this._npnready.value) {
+      this.logger.warn('[AdminService] tried to get newPupilNotifications synchronously before service loaded data');
+      return;
+    } else return this.newPupilNotifications.value;
   }
 
   getNewTutorNotifications() {
-    return this.newTutorNotificationsDoc.get().pipe(map((doc) => doc.data() as NewTutorNotifications));
+    if (!this._ntnready.value) {
+      this.logger.warn('[AdminService] tried to get newTutorNotifications synchronously before service loaded data');
+      return;
+    } else return this.newTutorNotifications.value;
+  }
+
+  getNewPupilNotifications$() {
+    return this.newPupilNotifications;
+  }
+
+  getNewTutorNotifications$() {
+    return this.newTutorNotifications;
   }
 
   updateNewPupilNotifications(doc: Partial<NewPupilNotifications>) {
